@@ -1,0 +1,82 @@
+<head>
+  <title>Astronomy</title>
+</head>
+
+<body></body>
+
+<template name="Members">
+  <div id="container">
+    <h1>List of users</h1>
+    <button type="button" name="add">Add new user</button>
+    {{#each members}}
+      {{> Member}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="Member">
+  <div class="member">
+    <h2>
+      <a href="{{pathFor route='edit' data=this.get}}">{{firstName}} {{lastName}}</a>
+      <span class="remove">&#x2716;</span>
+    </h2>
+    <div class="details">
+      <div>E-mail: <a href="mailto:{{email}}">{{email}}</a></div>
+      <div>Age: {{age}}</div>
+    </div>
+  </div>
+</template>
+
+<template name="Edit">
+  <div id="container">
+    {{#with member}}
+      <h1>Edit "{{firstName}} {{lastName}}"</h1>
+      {{> Form}}
+    {{/with}}
+  </div>
+</template>
+
+<template name="Add">
+  <div id="container">
+    {{#with member}}
+      <h1>Add a new user</h1>
+      {{> Form}}
+    {{/with}}
+  </div>
+</template>
+
+<template name="Form">
+  <div>
+    <label for="firstName">First name</label>
+    <input id="firstName" type="text" value="{{firstName}}" class="{{#if hasError 'firstName'}}error{{/if}}" />
+  </div>
+  {{#if hasError 'firstName'}}
+    <div class="error">{{getError 'firstName'}}</div>
+  {{/if}}
+
+  <div>
+    <label for="lastName">Last name</label>
+    <input id="lastName" type="text" value="{{lastName}}" class="{{#if hasError 'lastName'}}error{{/if}}" />
+  </div>
+  {{#if hasError 'lastName'}}
+    <div class="error">{{getError 'lastName'}}</div>
+  {{/if}}
+
+  <div>
+    <label for="email">E-mail</label>
+    <input id="email" type="text" value="{{email}}" class="{{#if hasError 'email'}}error{{/if}}" />
+  </div>
+  {{#if hasError 'email'}}
+    <div class="error">{{getError 'email'}}</div>
+  {{/if}}
+
+  <div>
+    <label for="age">Age</label>
+    <input id="age" type="number" value="{{age}}" class="{{#if hasError 'age'}}error{{/if}}" />
+  </div>
+  {{#if hasError 'age'}}
+    <div class="error">{{getError 'age'}}</div>
+  {{/if}}
+
+  <button type="button" name="save">Save</button>
+</template>

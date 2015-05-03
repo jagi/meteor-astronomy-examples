@@ -1,0 +1,114 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900);
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#container {
+  width: 740px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 740px) {
+  #container {
+    width: 100%;
+  }
+}
+
+h1 {
+  font-weight: 100;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+label {
+  display: block;
+  font-weight: 300;
+  font-size: 1em;
+  margin: 0.5em 0;
+  color: #000000;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 300;
+  font-size: 1em;
+  padding: 0.5em;
+  border: 1px solid #c8c8c8;
+  color: #a0a0a0;
+}
+
+input.error {
+  border: 1px solid #d8000c;
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+
+input:focus {
+  outline: 0 none;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
+div.error {
+  font-weight: 300;
+  font-size: 1em;
+  margin: 0.5em;
+  color: #d8000c;
+}
+
+.remove {
+  cursor: pointer;
+}
+
+.details {
+  font-weight: 300;
+}
+
+a:link, a:hover, a:active, a:visited {
+  text-decoration: none;
+  color: #3c3c8c;
+}
+
+a:hover, a:active {
+  color: #000000;
+}
+
+.member {
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 2em;
+  margin: 2em 0;
+}
+
+.member:last-of-type {
+  border: 0;
+}
+
+button {
+  min-width: 150px;
+  border: 0;
+  font-weight: 300;
+  font-size: 1em;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 2px;
+  outline: 0;
+}
+
+button:hover, button:active, button:focus {
+  background-color: #dcdcdc;
+}
