@@ -10,23 +10,22 @@ Member = Astro.Class({
     age: 'number'
   },
   validators: {
-    firstName: Astro.Validators.and([
-      Astro.Validators.str(),
-      Astro.Validators.minlen(3)
+    firstName: Validators.and([
+      Validators.str(),
+      Validators.minlen(3)
     ]),
-    lastName: Astro.Validators.and([
-      Astro.Validators.str(),
-      Astro.Validators.minlen(3)
+    lastName: Validators.and([
+      Validators.str(),
+      Validators.minlen(3)
     ]),
-    email: Astro.Validators.and([
-      Astro.Validators.str(),
-      Astro.Validators.email(3)
+    email: Validators.and([
+      Validators.str(),
+      Validators.email(3)
     ]),
-    age: Astro.Validators.and([
-      Astro.Validators.num(),
-      Astro.Validators.gte(18),
-      Astro.Validators.lte(100)
+    age: Validators.and([
+      Validators.num(),
+      Validators.gte(18),
+      Validators.lte(100)
     ])
-  },
-  behaviors: ['sort']
+  }
 });

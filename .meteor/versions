@@ -25,11 +25,12 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
-jagi:astronomy@0.4.1
-jagi:astronomy-behaviors@0.2.0
-jagi:astronomy-sort-behavior@0.1.0
-jagi:astronomy-timestamp-behavior@0.1.0
-jagi:astronomy-validators@0.4.1
+jagi:astronomy@0.5.0
+jagi:astronomy-behaviors@0.3.0
+jagi:astronomy-simple-validators@0.3.0
+jagi:astronomy-sort-behavior@0.2.0
+jagi:astronomy-timestamp-behavior@0.2.0
+jagi:astronomy-validators@0.5.0
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2

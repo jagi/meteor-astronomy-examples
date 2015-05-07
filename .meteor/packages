@@ -12,3 +12,4 @@ jagi:astronomy-validators
 iron:router
 jagi:astronomy-timestamp-behavior
 jagi:astronomy-sort-behavior
+jagi:astronomy-simple-validators
