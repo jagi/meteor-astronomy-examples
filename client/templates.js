@@ -18,7 +18,7 @@ Template.Member.events({
 Template.Form.events({
   'change input': function(e, tmpl) {
     var field = e.currentTarget;
-    this[field.id] = field.value;
+    this.set(field.id, field.value);
     this.validate(field.id);
   },
   'click [name=save]': function(e, tmpl) {
