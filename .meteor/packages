@@ -10,3 +10,4 @@ insecure
 jagi:astronomy
 jagi:astronomy-validators
 iron:router
+jagi:astronomy-timestamp-behavior

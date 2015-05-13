@@ -23,7 +23,7 @@ Template.Form.events({
   },
   'click [name=save]': function(e, tmpl) {
     if (this.validate()) {
-      Meteor.call('/member/save', this.get(), function(err, member) {
+      Meteor.call('/member/save', this, function(err, member) {
         if (!err) {
           Router.go('/');
         }
