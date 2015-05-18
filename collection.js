@@ -1,31 +1,37 @@
-Members = new Mongo.Collection('members');
+Users = new Mongo.Collection('users');
 
-Member = Astro.Class({
-  name: 'Member',
-  collection: Members,
+User = Astro.Class({
+  name: 'User',
+  collection: Users,
   fields: {
     firstName: 'string',
     lastName: 'string',
     email: 'string',
     age: 'number'
   },
+  methods: {
+    fullName: function() {
+      return this.firstName + ' ' + this.lastName;
+    }
+  },
   validators: {
     firstName: Validators.and([
-      Validators.str(),
+      Validators.required(),
       Validators.minlen(3)
     ]),
     lastName: Validators.and([
-      Validators.str(),
+      Validators.required(),
       Validators.minlen(3)
     ]),
     email: Validators.and([
-      Validators.str(),
+      Validators.required(),
       Validators.email(3)
     ]),
     age: Validators.and([
-      Validators.num(),
+      Validators.required(),
       Validators.gte(18),
       Validators.lte(100)
     ])
-  }
+  },
+  behaviors: ['timestamp']
 });

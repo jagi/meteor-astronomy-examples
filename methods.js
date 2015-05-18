@@ -1,9 +1,10 @@
 Meteor.methods({
-  '/member/save': function(member) {
-    if (member.validate()) {
-      return member.save();
-    } else {
-      return false;
+  '/user/save': function(user) {
+    if (user.validate()) {
+      user.save();
     }
+  },
+  '/user/remove': function(user) {
+    user.remove();
   }
 });

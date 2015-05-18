@@ -4,33 +4,37 @@
 
 <body></body>
 
-<template name="Members">
+<template name="Users">
   <div id="container">
     <h1>List of users</h1>
     <button type="button" name="add">Add new user</button>
-    {{#each members}}
-      {{> Member}}
+    {{#each users}}
+      {{> User}}
     {{/each}}
   </div>
 </template>
 
-<template name="Member">
-  <div class="member">
+<template name="User">
+  <div class="user">
     <h2>
-      <a href="{{pathFor route='edit' data=this.get}}">{{firstName}} {{lastName}}</a>
+      <a href="{{pathFor route='edit' data=this.get}}">{{fullName}}</a>
       <span class="remove">&#x2716;</span>
     </h2>
     <div class="details">
       <div>E-mail: <a href="mailto:{{email}}">{{email}}</a></div>
       <div>Age: {{age}}</div>
+      <div>Created: {{createdAt.toLocaleString}}</div>
+      {{#if updatedAt}}
+        <div>Update: {{updatedAt.toLocaleString}}</div>
+      {{/if}}
     </div>
   </div>
 </template>
 
 <template name="Edit">
   <div id="container">
-    {{#with member}}
-      <h1>Edit "{{firstName}} {{lastName}}"</h1>
+    {{#with user}}
+      <h1>Edit "{{fullName}}"</h1>
       {{> Form}}
     {{/with}}
   </div>
@@ -38,7 +42,7 @@
 
 <template name="Add">
   <div id="container">
-    {{#with member}}
+    {{#with user}}
       <h1>Add a new user</h1>
       {{> Form}}
     {{/with}}

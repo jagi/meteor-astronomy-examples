@@ -86,13 +86,13 @@ a:hover, a:active {
   color: #000000;
 }
 
-.member {
+.user {
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 2em;
   margin: 2em 0;
 }
 
-.member:last-of-type {
+.user:last-of-type {
   border: 0;
 }
 

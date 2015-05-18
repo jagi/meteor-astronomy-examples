@@ -1,16 +1,13 @@
-Template.Members.events({
+Template.Users.events({
   'click [name=add]': function(e, tmpl) {
     Router.go('add');
   }
 });
 
-Template.Member.events({
+Template.User.events({
   'click .remove': function(e, tmpl) {
-    if (confirm(
-        'Are you sure to remove "' + this.firstName + ' ' + this.lastName +
-        '"'
-      )) {
-      this.remove();
+    if (confirm('Are you sure to remove "' + this.fullName() + '"')) {
+      Meteor.call('/user/remove', this);
     }
   }
 });
@@ -23,9 +20,9 @@ Template.Form.events({
   },
   'click [name=save]': function(e, tmpl) {
     if (this.validate()) {
-      Meteor.call('/member/save', this, function(err, member) {
+      Meteor.call('/user/save', this, function(err) {
         if (!err) {
-          Router.go('/');
+          Router.go('users');
         }
       });
     }
