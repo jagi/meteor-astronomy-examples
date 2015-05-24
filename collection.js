@@ -24,6 +24,7 @@ User = Astro.Class({
       Validators.minlen(3)
     ]),
     email: Validators.and([
+      Validators.unique(),
       Validators.required(),
       Validators.email(3)
     ]),

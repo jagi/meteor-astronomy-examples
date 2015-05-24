@@ -14,15 +14,21 @@ Template.User.events({
 
 Template.Form.events({
   'change input': function(e, tmpl) {
+    var user = this;
+
     var field = e.currentTarget;
-    this.set(field.id, field.value);
-    this.validate(field.id);
+    user.set(field.id, field.value);
+    user.validate(field.id);
   },
   'click [name=save]': function(e, tmpl) {
-    if (this.validate()) {
-      Meteor.call('/user/save', this, function(err, user) {
+    var user = this;
+
+    if (user.validate()) {
+      Meteor.call('/user/save', user, function(err) {
         if (!err) {
           Router.go('users');
+        } else {
+          user.catchValidationException(err);
         }
       });
     }
