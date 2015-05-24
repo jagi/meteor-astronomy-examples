@@ -5,7 +5,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
+iron:router
 jagi:astronomy
 jagi:astronomy-validators
-iron:router
 jagi:astronomy-timestamp-behavior
+jagi:reactive-map

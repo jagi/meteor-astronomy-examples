@@ -52,34 +52,34 @@
 <template name="Form">
   <div>
     <label for="firstName">First name</label>
-    <input id="firstName" type="text" value="{{firstName}}" class="{{#if hasValidationError 'firstName'}}error{{/if}}" />
+    <input id="firstName" type="text" value="{{firstName}}" class="{{#if hasError 'firstName'}}error{{/if}}" />
   </div>
-  {{#if hasValidationError 'firstName'}}
-    <div class="error">{{getValidationError 'firstName'}}</div>
+  {{#if hasError 'firstName'}}
+    <div class="error">{{getError 'firstName'}}</div>
   {{/if}}
 
   <div>
     <label for="lastName">Last name</label>
-    <input id="lastName" type="text" value="{{lastName}}" class="{{#if hasValidationError 'lastName'}}error{{/if}}" />
+    <input id="lastName" type="text" value="{{lastName}}" class="{{#if hasError 'lastName'}}error{{/if}}" />
   </div>
-  {{#if hasValidationError 'lastName'}}
-    <div class="error">{{getValidationError 'lastName'}}</div>
+  {{#if hasError 'lastName'}}
+    <div class="error">{{getError 'lastName'}}</div>
   {{/if}}
 
   <div>
     <label for="email">E-mail</label>
-    <input id="email" type="text" value="{{email}}" class="{{#if hasValidationError 'email'}}error{{/if}}" />
+    <input id="email" type="text" value="{{email}}" class="{{#if hasError 'email'}}error{{/if}}" />
   </div>
-  {{#if hasValidationError 'email'}}
-    <div class="error">{{getValidationError 'email'}}</div>
+  {{#if hasError 'email'}}
+    <div class="error">{{getError 'email'}}</div>
   {{/if}}
 
   <div>
     <label for="age">Age</label>
-    <input id="age" type="number" value="{{age}}" class="{{#if hasValidationError 'age'}}error{{/if}}" />
+    <input id="age" type="number" value="{{age}}" class="{{#if hasError 'age'}}error{{/if}}" />
   </div>
-  {{#if hasValidationError 'age'}}
-    <div class="error">{{getValidationError 'age'}}</div>
+  {{#if hasError 'age'}}
+    <div class="error">{{getError 'age'}}</div>
   {{/if}}
 
   <button type="button" name="save">Save</button>
