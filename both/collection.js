@@ -29,10 +29,16 @@ Phone = Astro.Class({
   name: 'Phone',
   fields: {
     name: {
-      type: 'string'
+      type: 'string',
+      validators: [
+        Validators.string()
+      ]
     },
     number: {
-      type: 'string'
+      type: 'string',
+      validators: [
+        Validators.string()
+      ]
     }
   },
   methods: {
@@ -76,7 +82,6 @@ User = Astro.Class({
     },
     'email': {
       type: 'string',
-      default: 'example@mail.com',
       validators: [
         Validators.required(),
         Validators.string(),
