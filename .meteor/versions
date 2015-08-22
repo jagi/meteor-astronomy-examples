@@ -27,7 +27,8 @@ iron:url@1.0.9
 jagi:astronomy@0.12.1
 jagi:astronomy-behaviors@0.6.0
 jagi:astronomy-query-builder@0.2.0
-jagi:astronomy-relations@0.1.1
+jagi:astronomy-relations@0.1.2
+jagi:astronomy-simple-validators@0.6.0
 jagi:astronomy-slug-behavior@0.3.1
 jagi:astronomy-softremove-behavior@0.3.1
 jagi:astronomy-timestamp-behavior@0.5.0

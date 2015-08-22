@@ -18,11 +18,20 @@
   <div class="user">
     <h2>
       <a href="{{pathFor route='edit' data=this.get}}">{{fullName}}</a>
-      <span class="remove">&#x2716;</span>
+      <span class="remove">&#x00D7;</span>
     </h2>
     <div class="details">
       <div>E-mail: <a href="mailto:{{email}}">{{email}}</a></div>
       <div>Age: {{age}}</div>
+      <div>Address: {{address.where}}</div>
+      {{#if phones}}
+        <div>Phones:</div>
+        <ul>
+          {{#each phones}}
+            <li>{{name}} {{number}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
       <div>Created: {{createdAt.toLocaleString}}</div>
       {{#if updatedAt}}
         <div>Update: {{updatedAt.toLocaleString}}</div>
@@ -82,5 +91,53 @@
     <div class="error">{{getValidationError 'age'}}</div>
   {{/if}}
 
+  <label>Address</label>
+  {{> AddressForm address}}
+
+  <label>Phones</label>
+  {{#each phones}}
+    {{> PhoneForm}}
+  {{/each}}
+
   <button type="button" name="save">Save</button>
+</template>
+
+<template name="AddressForm">
+  <section>
+    <div>
+      <label for="city">City</label>
+      <input id="city" type="text" value="{{city}}" class="{{#if hasValidationError 'city'}}error{{/if}}" />
+    </div>
+    {{#if hasValidationError 'city'}}
+      <div class="error">{{getValidationError 'city'}}</div>
+    {{/if}}
+
+    <div>
+      <label for="state">State</label>
+      <input id="state" type="text" value="{{state}}" class="{{#if hasValidationError 'state'}}error{{/if}}" />
+    </div>
+    {{#if hasValidationError 'state'}}
+      <div class="error">{{getValidationError 'state'}}</div>
+    {{/if}}
+  </section>
+</template>
+
+<template name="PhoneForm">
+  <section>
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" value="{{name}}" class="{{#if hasValidationError 'name'}}error{{/if}}" />
+    </div>
+    {{#if hasValidationError 'name'}}
+      <div class="error">{{getValidationError 'name'}}</div>
+    {{/if}}
+
+    <div>
+      <label for="number">Number</label>
+      <input id="number" type="text" value="{{number}}" class="{{#if hasValidationError 'number'}}error{{/if}}" />
+    </div>
+    {{#if hasValidationError 'number'}}
+      <div class="error">{{getValidationError 'number'}}</div>
+    {{/if}}
+  </section>
 </template>

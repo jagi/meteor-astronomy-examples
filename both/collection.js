@@ -14,7 +14,8 @@ Address = Astro.Class({
       validators: [
         Validators.required(),
         Validators.string(),
-        Validators.minLength(3)
+        Validators.minLength(2),
+        Validators.maxLength(2)
       ]
     }
   },
@@ -63,9 +64,13 @@ User = Astro.Class({
       class: 'Phone'
     }
   },
+  // validationOrder: [
+  //   'lastName',
+  //   'age'
+  // ],
   fields: {
     'firstName': {
-      type: 'string',
+      type: null,
       validators: [
         Validators.required(),
         Validators.string(),
