@@ -64,13 +64,9 @@ User = Astro.Class({
       class: 'Phone'
     }
   },
-  // validationOrder: [
-  //   'lastName',
-  //   'age'
-  // ],
   fields: {
     'firstName': {
-      type: null,
+      type: 'string',
       validators: [
         Validators.required(),
         Validators.string(),
