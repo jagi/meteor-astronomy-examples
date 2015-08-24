@@ -54,6 +54,7 @@ Users = new Mongo.Collection('users');
 User = Astro.Class({
   name: 'User',
   collection: Users,
+  typeField: 'type',
   embedOne: {
     'address': {
       class: 'Address'
@@ -106,7 +107,16 @@ User = Astro.Class({
     }
   },
   behaviors: {
-    timestamp: {},
+    timestamp: {}
+  }
+});
+
+Admin = User.extend({
+  name: 'Admin',
+  fields: {
+    admin: 'boolean'
+  },
+  behaviors: {
     slug: {
       fieldName: 'firstName',
       canUpdate: false
