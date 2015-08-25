@@ -14,8 +14,7 @@ Address = Astro.Class({
       validators: [
         Validators.required(),
         Validators.string(),
-        Validators.minLength(2),
-        Validators.maxLength(2)
+        Validators.length(2)
       ]
     }
   },
@@ -54,7 +53,6 @@ Users = new Mongo.Collection('users');
 User = Astro.Class({
   name: 'User',
   collection: Users,
-  typeField: 'type',
   embedOne: {
     'address': {
       class: 'Address'
@@ -68,6 +66,7 @@ User = Astro.Class({
   fields: {
     'firstName': {
       type: 'string',
+      required: true,
       validators: [
         Validators.required(),
         Validators.string(),
@@ -108,18 +107,5 @@ User = Astro.Class({
   },
   behaviors: {
     timestamp: {}
-  }
-});
-
-Admin = User.extend({
-  name: 'Admin',
-  fields: {
-    admin: 'boolean'
-  },
-  behaviors: {
-    slug: {
-      fieldName: 'firstName',
-      canUpdate: false
-    }
   }
 });

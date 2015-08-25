@@ -91,13 +91,17 @@
     <div class="error">{{getValidationError 'age'}}</div>
   {{/if}}
 
-  <label>Address</label>
-  {{> AddressForm address}}
+  {{#if address}}
+    <label>Address</label>
+    {{> AddressForm address}}
+  {{/if}}
 
-  <label>Phones</label>
-  {{#each phones}}
-    {{> PhoneForm}}
-  {{/each}}
+  {{#if phones}}
+    <label>Phones</label>
+    {{#each phones}}
+      {{> PhoneForm}}
+    {{/each}}
+  {{/if}}
 
   <button type="button" name="save">Save</button>
 </template>
