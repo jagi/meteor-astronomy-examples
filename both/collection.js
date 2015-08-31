@@ -4,16 +4,12 @@ Address = Astro.Class({
     city: {
       type: 'string',
       validators: [
-        Validators.required(),
-        Validators.string(),
         Validators.minLength(3)
       ]
     },
     state: {
       type: 'string',
       validators: [
-        Validators.required(),
-        Validators.string(),
         Validators.length(2)
       ]
     }
@@ -31,13 +27,13 @@ Phone = Astro.Class({
     name: {
       type: 'string',
       validators: [
-        Validators.string()
+        Validators.minLength(3)
       ]
     },
     number: {
       type: 'string',
       validators: [
-        Validators.string()
+        Validators.minLength(9)
       ]
     }
   },
@@ -55,12 +51,24 @@ User = Astro.Class({
   collection: Users,
   embedOne: {
     'address': {
-      class: 'Address'
+      class: 'Address',
+      default: function() {
+        return {};
+      }
     }
   },
   embedMany: {
     'phones': {
       class: 'Phone'
+    },
+    'nicknames': {
+      type: 'string',
+      default: function() {
+        return [];
+      },
+      validators: Validators.every(
+        Validators.minLength(3)
+      )
     }
   },
   fields: {
@@ -68,33 +76,28 @@ User = Astro.Class({
       type: 'string',
       required: true,
       validators: [
-        Validators.required(),
-        Validators.string(),
         Validators.minLength(3)
       ]
     },
     'lastName': {
       type: 'string',
+      required: true,
       validators: [
-        Validators.required(),
-        Validators.string(),
         Validators.minLength(3)
       ]
     },
     'email': {
       type: 'string',
+      required: true,
       validators: [
-        Validators.required(),
-        Validators.string(),
         Validators.email(3),
-        Validators.unique(),
+        Validators.unique()
       ]
     },
     'age': {
       type: 'number',
+      required: true,
       validators: [
-        Validators.required(),
-        Validators.number(),
         Validators.gte(18),
         Validators.lte(100)
       ]
