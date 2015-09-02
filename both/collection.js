@@ -106,6 +106,9 @@ User = Astro.Class({
   methods: {
     fullName: function() {
       return this.firstName + ' ' + this.lastName;
+    },
+    nicknamesList: function() {
+      return this.nicknames.join(', ');
     }
   },
   behaviors: {
