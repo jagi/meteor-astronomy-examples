@@ -59,16 +59,10 @@ User = Astro.Class({
   },
   embedMany: {
     'phones': {
-      class: 'Phone'
-    },
-    'nicknames': {
-      type: 'string',
+      class: 'Phone',
       default: function() {
         return [];
-      },
-      validators: Validators.every(
-        Validators.minLength(3)
-      )
+      }
     }
   },
   fields: {
@@ -106,9 +100,6 @@ User = Astro.Class({
   methods: {
     fullName: function() {
       return this.firstName + ' ' + this.lastName;
-    },
-    nicknamesList: function() {
-      return this.nicknames.join(', ');
     }
   },
   behaviors: {
