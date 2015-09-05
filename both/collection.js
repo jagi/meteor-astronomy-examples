@@ -49,23 +49,21 @@ Users = new Mongo.Collection('users');
 User = Astro.Class({
   name: 'User',
   collection: Users,
-  embedOne: {
+  fields: {
     'address': {
+      type: 'object',
       class: 'Address',
       default: function() {
         return {};
       }
-    }
-  },
-  embedMany: {
+    },
     'phones': {
+      type: 'array',
       class: 'Phone',
       default: function() {
         return [];
       }
-    }
-  },
-  fields: {
+    },
     'firstName': {
       type: 'string',
       required: true,
@@ -103,6 +101,7 @@ User = Astro.Class({
     }
   },
   behaviors: {
-    timestamp: {}
+    timestamp: {},
+    softremove: {}
   }
 });
