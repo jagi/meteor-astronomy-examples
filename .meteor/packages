@@ -9,9 +9,7 @@ iron:router
 jagi:astronomy
 jagi:astronomy-validators
 jagi:astronomy-timestamp-behavior
-jagi:reactive-map
 jagi:astronomy-softremove-behavior
-jagi:astronomy-relations
 jagi:astronomy-slug-behavior
 
 jagi:astronomy-simple-validators

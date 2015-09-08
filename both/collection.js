@@ -52,17 +52,17 @@ User = Astro.Class({
   fields: {
     'address': {
       type: 'object',
-      class: 'Address',
       default: function() {
         return {};
-      }
+      },
+      nested: 'Address'
     },
     'phones': {
       type: 'array',
-      class: 'Phone',
       default: function() {
         return [];
-      }
+      },
+      nested: 'Phone'
     },
     'firstName': {
       type: 'string',
