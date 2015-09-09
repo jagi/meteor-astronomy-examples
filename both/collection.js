@@ -66,21 +66,18 @@ User = Astro.Class({
     },
     'firstName': {
       type: 'string',
-      required: true,
       validators: [
         Validators.minLength(3)
       ]
     },
     'lastName': {
       type: 'string',
-      required: true,
       validators: [
         Validators.minLength(3)
       ]
     },
     'email': {
       type: 'string',
-      required: true,
       validators: [
         Validators.email(3),
         Validators.unique()
@@ -88,7 +85,6 @@ User = Astro.Class({
     },
     'age': {
       type: 'number',
-      required: true,
       validators: [
         Validators.gte(18),
         Validators.lte(100)
