@@ -83,12 +83,21 @@ User = Astro.Class({
         Validators.unique()
       ]
     },
+    'birthDate': {
+      type: 'date'
+    },
     'age': {
       type: 'number',
-      validators: [
-        Validators.gte(18),
-        Validators.lte(100)
-      ]
+      transient: true
+    }
+  },
+  events: {
+    afterInit: function() {
+      var birthDate = this.birthDate;
+      if (birthDate) {
+        var diff = Date.now() - birthDate.getTime();
+        this.set('age', Math.abs((new Date(diff)).getUTCFullYear() - 1970));
+      }
     }
   },
   methods: {
