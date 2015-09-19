@@ -3,13 +3,13 @@ Address = Astro.Class({
   fields: {
     city: {
       type: 'string',
-      validators: [
+      validator: [
         Validators.minLength(3)
       ]
     },
     state: {
       type: 'string',
-      validators: [
+      validator: [
         Validators.length(2)
       ]
     }
@@ -26,13 +26,13 @@ Phone = Astro.Class({
   fields: {
     name: {
       type: 'string',
-      validators: [
+      validator: [
         Validators.minLength(3)
       ]
     },
     number: {
       type: 'string',
-      validators: [
+      validator: [
         Validators.minLength(9)
       ]
     }
@@ -50,6 +50,35 @@ User = Astro.Class({
   name: 'User',
   collection: Users,
   fields: {
+    'firstName': {
+      type: 'string',
+      validator: [
+        Validators.minLength(3)
+      ]
+    },
+    'lastName': {
+      type: 'string',
+      validator: [
+        Validators.minLength(3)
+      ]
+    },
+    'email': {
+      type: 'string',
+      validator: [
+        Validators.email(3),
+        Validators.unique()
+      ]
+    },
+    'birthDate': {
+      type: 'date',
+      validator: [
+        Validators.date()
+      ]
+    },
+    'age': {
+      type: 'number',
+      transient: true
+    },
     'address': {
       type: 'object',
       default: function() {
@@ -59,37 +88,8 @@ User = Astro.Class({
     },
     'phones': {
       type: 'array',
-      default: function() {
-        return [];
-      },
       nested: 'Phone'
     },
-    'firstName': {
-      type: 'string',
-      validators: [
-        Validators.minLength(3)
-      ]
-    },
-    'lastName': {
-      type: 'string',
-      validators: [
-        Validators.minLength(3)
-      ]
-    },
-    'email': {
-      type: 'string',
-      validators: [
-        Validators.email(3),
-        Validators.unique()
-      ]
-    },
-    'birthDate': {
-      type: 'date'
-    },
-    'age': {
-      type: 'number',
-      transient: true
-    }
   },
   events: {
     afterInit: function() {
@@ -103,6 +103,22 @@ User = Astro.Class({
   methods: {
     fullName: function() {
       return this.firstName + ' ' + this.lastName;
+    },
+    formattedBirthDate: function() {
+      var date = this.birthDate;
+
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = this.birthDate.getDate();
+
+      if (month < 10) {
+        month = '0' + month;
+      }
+      if (day < 10) {
+        day = '0' + day;
+      }
+
+      return year + '-' + month + '-' + day;
     }
   },
   behaviors: {

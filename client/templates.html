@@ -84,11 +84,11 @@
   {{/if}}
 
   <div>
-    <label for="age">Age</label>
-    <input id="age" type="number" value="{{age}}" class="{{#if hasValidationError 'age'}}error{{/if}}" />
+    <label for="birthDate">Birth date</label>
+    <input id="birthDate" type="date" value="{{formattedBirthDate}}" class="{{#if hasValidationError 'birthDate'}}error{{/if}}" />
   </div>
-  {{#if hasValidationError 'age'}}
-    <div class="error">{{getValidationError 'age'}}</div>
+  {{#if hasValidationError 'birthDate'}}
+    <div class="error">{{getValidationError 'birthDate'}}</div>
   {{/if}}
 
   {{#if address}}
