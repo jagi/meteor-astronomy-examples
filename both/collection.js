@@ -92,15 +92,22 @@ User = Astro.Class({
     },
   },
   events: {
-    afterInit: function() {
-      var birthDate = this.birthDate;
-      if (birthDate) {
-        var diff = Date.now() - birthDate.getTime();
-        this.set('age', Math.abs((new Date(diff)).getUTCFullYear() - 1970));
+    afterChange: function(e) {
+      if (e.data.fieldName === 'birthDate') {
+        this.calculateAge();
       }
+    },
+    afterInit: function() {
+      this.calculateAge();
     }
   },
   methods: {
+    calculateAge: function() {
+      if (this.birthDate) {
+        var diff = Date.now() - this.birthDate.getTime();
+        this.set('age', Math.abs((new Date(diff)).getUTCFullYear() - 1970));
+      }
+    },
     fullName: function() {
       return this.firstName + ' ' + this.lastName;
     },
