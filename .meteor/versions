@@ -28,12 +28,12 @@ iron:location@1.0.9
 iron:middleware-stack@1.0.9
 iron:router@1.0.9
 iron:url@1.0.9
-jagi:astronomy@1.0.0-rc.3
+jagi:astronomy@1.0.0-rc.4
 jagi:astronomy-simple-validators@1.0.0-rc.1
 jagi:astronomy-slug-behavior@1.0.0-rc.1
 jagi:astronomy-softremove-behavior@1.0.0-rc.1
 jagi:astronomy-timestamp-behavior@1.0.0-rc.1
-jagi:astronomy-validators@1.0.0-rc.1
+jagi:astronomy-validators@1.0.0-rc.2
 jagi:reactive-map@0.2.2
 jquery@1.11.3_2
 json@1.0.3
