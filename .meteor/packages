@@ -8,10 +8,6 @@ iron:router
 jagi:astronomy
 jagi:astronomy-validators
 jagi:astronomy-timestamp-behavior
-jagi:astronomy-softremove-behavior
-jagi:astronomy-slug-behavior
-
-jagi:astronomy-simple-validators
 msavin:mongol
 insecure
 meteor-base

@@ -36,11 +36,6 @@ Phone = Astro.Class({
         Validators.minLength(9)
       ]
     }
-  },
-  methods: {
-    call: function() {
-      console.log('Calling ' + this.name + ' phone: ' + this.number);
-    }
   }
 });
 
@@ -89,7 +84,7 @@ User = Astro.Class({
     'phones': {
       type: 'array',
       nested: 'Phone'
-    },
+    }
   },
   events: {
     afterChange: function(e) {
@@ -131,7 +126,6 @@ User = Astro.Class({
     }
   },
   behaviors: {
-    timestamp: {},
-    softremove: {}
+    timestamp: {}
   }
 });
