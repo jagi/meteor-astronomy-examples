@@ -125,6 +125,16 @@ User = Astro.Class({
       }
     }
   },
+  indexes: {
+    email: {
+      fields: {
+        email: 1
+      },
+      options: {
+        unique: true
+      }
+    }
+  },
   behaviors: {
     timestamp: {}
   }
