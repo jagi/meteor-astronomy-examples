@@ -1,39 +1,22 @@
-Router.route('/', {
+FlowRouter.route('/', {
   name: 'users',
-  template: 'Users',
-  waitOn: function() {
-    return Meteor.subscribe('users');
-  },
-  data: function() {
-    return {
-      users: Users.find({}, {
-        sort: {
-          age: -1
-        }
-      })
-    };
+  action: function(params) {
+    BlazeLayout.render("Users");
   }
+
+
 });
 
-Router.route('/edit/:_id', {
+FlowRouter.route('/edit/:_id', {
   name: 'edit',
-  template: 'Edit',
-  waitOn: function() {
-    return Meteor.subscribe('user', this.params._id);
-  },
-  data: function() {
-    return {
-      user: Users.findOne(this.params._id)
-    };
+  action: function(params) {
+    BlazeLayout.render("Edit", {_id: params._id});
   }
 });
 
-Router.route('/add', {
+FlowRouter.route('/add', {
   name: 'add',
-  template: 'Add',
-  data: function() {
-    return {
-      user: new User()
-    };
+  action: function(params) {
+    BlazeLayout.render("Add");
   }
 });
