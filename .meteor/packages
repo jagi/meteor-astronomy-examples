@@ -9,7 +9,6 @@ jagi:astronomy
 jagi:astronomy-validators
 jagi:astronomy-timestamp-behavior
 msavin:mongol
-insecure
 meteor-base
 mobile-experience
 mongo
