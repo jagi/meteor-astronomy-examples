@@ -14,11 +14,11 @@ Template.User.events({
 
 Template.Form.events({
   'change input': function(e, tmpl) {
-    var user = this;
+    var doc = this;
 
     var field = e.currentTarget;
-    user.set(field.id, field.value);
-    user.validate(field.id);
+    doc.set(field.id, field.value);
+    doc.validate(field.id);
   },
   'click [name=save]': function(e, tmpl) {
     var user = this;
