@@ -83,7 +83,10 @@ User = Astro.Class({
     },
     'phones': {
       type: 'array',
-      nested: 'Phone'
+      nested: 'Phone',
+      default: function() {
+        return [];
+      },
     }
   },
   events: {

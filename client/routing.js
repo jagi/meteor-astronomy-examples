@@ -17,23 +17,23 @@ Router.route('/', {
 
 Router.route('/edit/:_id', {
   name: 'edit',
-  template: 'Edit',
+  template: 'Form',
   waitOn: function() {
     return Meteor.subscribe('user', this.params._id);
   },
   data: function() {
     return {
-      user: Users.findOne(this.params._id)
+      user: new ReactiveVar(User.findOne(this.params._id))
     };
   }
 });
 
 Router.route('/add', {
   name: 'add',
-  template: 'Add',
+  template: 'Form',
   data: function() {
     return {
-      user: new User()
+      user: new ReactiveVar(new User())
     };
   }
 });
