@@ -4,7 +4,7 @@ Template.Users.events({
   }
 });
 
-Template.User.events({
+Template.UserForm.events({
   'click .remove': function(e, tmpl) {
     if (confirm('Are you sure to remove "' + this.fullName() + '"')) {
       Meteor.call('/user/remove', this);
@@ -12,7 +12,7 @@ Template.User.events({
   }
 });
 
-Template.Form.events({
+Template.UserForm.events({
   'change input': function(e, tmpl) {
     var doc = this; // Instance of User, Phone or Address class.
 

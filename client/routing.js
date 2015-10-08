@@ -17,7 +17,7 @@ Router.route('/', {
 
 Router.route('/edit/:_id', {
   name: 'edit',
-  template: 'Form',
+  template: 'UserForm',
   waitOn: function() {
     return Meteor.subscribe('user', this.params._id);
   },
@@ -30,7 +30,7 @@ Router.route('/edit/:_id', {
 
 Router.route('/add', {
   name: 'add',
-  template: 'Form',
+  template: 'UserForm',
   data: function() {
     return {
       user: new ReactiveVar(new User())
