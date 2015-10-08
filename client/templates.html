@@ -17,7 +17,7 @@
 <template name="User">
   <div class="user">
     <h2>
-      <a href="{{pathFor route='edit' data=this.get}}">{{fullName}}</a>
+      <a href="{{pathFor 'edit' _id=this.get._id}}">{{fullName}}</a>
       <span class="remove">&#x00D7;</span>
     </h2>
     <div class="details">

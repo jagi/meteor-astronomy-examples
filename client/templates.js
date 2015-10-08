@@ -1,14 +1,40 @@
-Template.Users.events({
-  'click [name=add]': function(e, tmpl) {
-    Router.go('add');
+Template.Users.onCreated(function(){
+  this.subscribe('users');
+});
+
+Template.Users.helpers({
+  users: function() {
+    return Users.find({}, {
+      sort: {
+        age: -1
+      }
+    });
   }
 });
 
-Template.UserForm.events({
+Template.Users.events({
+  'click [name=add]': function(e, tmpl) {
+    FlowRouter.go('add');
+  }
+});
+
+Template.User.events({
   'click .remove': function(e, tmpl) {
     if (confirm('Are you sure to remove "' + this.fullName() + '"')) {
       Meteor.call('/user/remove', this);
     }
+  }
+});
+
+Template.UserForm.onCreated(function(){
+
+  var _id = FlowRouter.getParam('_id');
+
+  if (_id) {
+    this.subscribe('user', _id);
+    this.data.user = new ReactiveVar(Users.findOne(_id));
+  } else {
+    this.data.user = ReactiveVar(new User());
   }
 });
 
@@ -43,7 +69,7 @@ Template.UserForm.events({
     if (user.validate()) {
       Meteor.call('/user/save', user, function(err) {
         if (!err) {
-          Router.go('users');
+          FlowRouter.go('users');
         } else {
           user.catchValidationException(err);
         }
