@@ -1,4 +1,4 @@
-Template.Users.onCreated(function(){
+Template.Users.onCreated(function() {
   this.subscribe('users');
 });
 
@@ -26,8 +26,7 @@ Template.User.events({
   }
 });
 
-Template.UserForm.onCreated(function(){
-
+Template.UserForm.onCreated(function() {
   var _id = FlowRouter.getParam('_id');
 
   if (_id) {
