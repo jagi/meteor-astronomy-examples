@@ -41,65 +41,65 @@
 </template>
 
 <template name="UserForm">
-  {{#with user.get}}
   <div id="container">
-    {{#if _id}}
-      <h1>Editing "{{fullName}}"</h1>
-    {{else}}
-      <h1>Adding a new user</h1>
-    {{/if}}
-    <div>
-      <label for="firstName">First name</label>
-      <input id="firstName" type="text" value="{{firstName}}" class="{{#if hasValidationError 'firstName'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'firstName'}}
-      <div class="error">{{getValidationError 'firstName'}}</div>
-    {{/if}}
+    <form>
+      {{#if doc._id}}
+        <h1>Editing "{{doc.fullName}}"</h1>
+      {{else}}
+        <h1>Adding a new user</h1>
+      {{/if}}
+      <div>
+        <label for="firstName">First name</label>
+        <input id="firstName" type="text" value="{{doc.firstName}}" class="{{#if doc.hasValidationError 'firstName'}}error{{/if}}" />
+      </div>
+      {{#if doc.hasValidationError 'firstName'}}
+        <div class="error">{{doc.getValidationError 'firstName'}}</div>
+      {{/if}}
 
-    <div>
-      <label for="lastName">Last name</label>
-      <input id="lastName" type="text" value="{{lastName}}" class="{{#if hasValidationError 'lastName'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'lastName'}}
-      <div class="error">{{getValidationError 'lastName'}}</div>
-    {{/if}}
+      <div>
+        <label for="lastName">Last name</label>
+        <input id="lastName" type="text" value="{{doc.lastName}}" class="{{#if doc.hasValidationError 'lastName'}}error{{/if}}" />
+      </div>
+      {{#if doc.hasValidationError 'lastName'}}
+        <div class="error">{{doc.getValidationError 'lastName'}}</div>
+      {{/if}}
 
-    <div>
-      <label for="email">E-mail</label>
-      <input id="email" type="text" value="{{email}}" class="{{#if hasValidationError 'email'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'email'}}
-      <div class="error">{{getValidationError 'email'}}</div>
-    {{/if}}
+      <div>
+        <label for="email">E-mail</label>
+        <input id="email" type="text" value="{{doc.email}}" class="{{#if doc.hasValidationError 'email'}}error{{/if}}" />
+      </div>
+      {{#if doc.hasValidationError 'email'}}
+        <div class="error">{{doc.getValidationError 'email'}}</div>
+      {{/if}}
 
-    <div>
-      <label for="birthDate">Birth date</label>
-      <input id="birthDate" type="date" value="{{formattedBirthDate}}" class="{{#if hasValidationError 'birthDate'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'birthDate'}}
-      <div class="error">{{getValidationError 'birthDate'}}</div>
-    {{/if}}
+      <div>
+        <label for="birthDate">Birth date</label>
+        <input id="birthDate" type="date" value="{{doc.formattedBirthDate}}" class="{{#if doc.hasValidationError 'birthDate'}}error{{/if}}" />
+      </div>
+      {{#if doc.hasValidationError 'birthDate'}}
+        <div class="error">{{doc.getValidationError 'birthDate'}}</div>
+      {{/if}}
 
-    <label>Address</label>
-    {{#if address}}
-      {{> AddressForm address}}
-    {{/if}}
+      <label>Address</label>
+      {{#if doc.address}}
+        {{> AddressForm doc.address}}
+      {{/if}}
 
-    <label>Phones</label>
-    {{#if phones}}
-      {{#each phones}}
-        {{> PhoneForm}}
-      {{/each}}
-    {{/if}}
+      <label>Phones</label>
+      {{#if doc.phones}}
+        {{#each doc.phones}}
+          {{> PhoneForm}}
+        {{/each}}
+      {{/if}}
 
-    <div>
-      <button type="button" name="addPhone">Add phone</button>
-    </div>
-    <div>
-      <button type="button" name="save">Save</button>
-    </div>
+      <div>
+        <button type="button" name="addPhone">Add phone</button>
+      </div>
+      <div>
+        <button type="submit" name="save">Save</button>
+      </div>
+    </form>
   </div>
-  {{/with}}
 </template>
 
 <template name="AddressForm">

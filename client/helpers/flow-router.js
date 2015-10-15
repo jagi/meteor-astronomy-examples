@@ -10,12 +10,3 @@ let pathFor = (path, view) => {
 };
 
 Template.registerHelper('pathFor', pathFor);
-
-Template.registerHelper('urlFor', (path, view) => {
-  return Meteor.absoluteUrl(pathFor(path, view).substr(1));
-});
-
-Template.registerHelper('currentRoute', (route) => {
-  FlowRouter.watchPathChange();
-  return FlowRouter.current().route.name === route ? 'active' : '';
-});
