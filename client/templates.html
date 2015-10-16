@@ -43,7 +43,7 @@
 <template name="UserForm">
   <div id="container">
     <form>
-      {{#if doc._id}}
+      {{#if isNew}}
         <h1>Editing "{{doc.fullName}}"</h1>
       {{else}}
         <h1>Adding a new user</h1>
@@ -82,15 +82,51 @@
 
       <label>Address</label>
       {{#if doc.address}}
-        {{> AddressForm doc.address}}
+        <section>
+          <div>
+            <label for="address.city">City</label>
+            <input id="address.city" type="text" value="{{doc.address.city}}" class="{{#if doc.address.hasValidationError 'city'}}error{{/if}}" />
+          </div>
+          {{#if doc.address.hasValidationError 'city'}}
+            <div class="error">{{doc.address.getValidationError 'city'}}</div>
+          {{/if}}
+
+          <div>
+            <label for="address.state">State</label>
+            <input id="address.state" type="text" value="{{doc.address.state}}" class="{{#if doc.address.hasValidationError 'state'}}error{{/if}}" />
+          </div>
+          {{#if doc.address.hasValidationError 'state'}}
+            <div class="error">{{doc.address.getValidationError 'state'}}</div>
+          {{/if}}
+        </section>
       {{/if}}
 
       <label>Phones</label>
       {{#if doc.phones}}
         {{#each doc.phones}}
-          {{> PhoneForm}}
+        <section>
+          <div>
+            <label for="phones.{{@index}}.name">Name</label>
+            <input id="phones.{{@index}}.name" type="text" value="{{name}}" class="{{#if hasValidationError 'name'}}error{{/if}}" />
+          </div>
+          {{#if hasValidationError 'name'}}
+            <div class="error">{{getValidationError 'name'}}</div>
+          {{/if}}
+
+          <div>
+            <label for="phones.{{@index}}.number">Number</label>
+            <input id="phones.{{@index}}.number" type="text" value="{{number}}" class="{{#if hasValidationError 'number'}}error{{/if}}" />
+          </div>
+          {{#if hasValidationError 'number'}}
+            <div class="error">{{getValidationError 'number'}}</div>
+          {{/if}}
+          <div>
+            <button type="button" name="removePhone">Remove phone</button>
+          </div>
+        </section>
         {{/each}}
       {{/if}}
+
 
       <div>
         <button type="button" name="addPhone">Add phone</button>
@@ -100,47 +136,4 @@
       </div>
     </form>
   </div>
-</template>
-
-<template name="AddressForm">
-  <section>
-    <div>
-      <label for="city">City</label>
-      <input id="city" type="text" value="{{city}}" class="{{#if hasValidationError 'city'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'city'}}
-      <div class="error">{{getValidationError 'city'}}</div>
-    {{/if}}
-
-    <div>
-      <label for="state">State</label>
-      <input id="state" type="text" value="{{state}}" class="{{#if hasValidationError 'state'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'state'}}
-      <div class="error">{{getValidationError 'state'}}</div>
-    {{/if}}
-  </section>
-</template>
-
-<template name="PhoneForm">
-  <section>
-    <div>
-      <label for="name">Name</label>
-      <input id="name" type="text" value="{{name}}" class="{{#if hasValidationError 'name'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'name'}}
-      <div class="error">{{getValidationError 'name'}}</div>
-    {{/if}}
-
-    <div>
-      <label for="number">Number</label>
-      <input id="number" type="text" value="{{number}}" class="{{#if hasValidationError 'number'}}error{{/if}}" />
-    </div>
-    {{#if hasValidationError 'number'}}
-      <div class="error">{{getValidationError 'number'}}</div>
-    {{/if}}
-    <div>
-      <button type="button" name="removePhone">Remove phone</button>
-    </div>
-  </section>
 </template>

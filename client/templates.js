@@ -26,17 +26,13 @@ Template.User.events({
   }
 });
 
-Template.UserForm.events({
-  'change input': function(e) {
-    var doc = UserForm.getDocument();
+Template.UserForm.helpers({
+  isNew: function() {
+    return FlowRouter.getParam('_id');
+  }
+});
 
-    // Get an input which value was changed.
-    var input = e.currentTarget;
-    // Set a value of a field in an instance of User, Phone or Address class.
-    doc.set(input.id, input.value);
-    // Validate given field.
-    doc.validate(input.id);
-  },
+Template.UserForm.events({
   'click [name=addPhone]': function(e) {
     var user = UserForm.getDocument();
     // FIXME: It should be:
@@ -57,30 +53,42 @@ UserForm = new Astro.Form({
   template: Template.UserForm,
   className: 'User',
   events: {
-    submit: [function(e) {
-      var user = UserForm.getDocument();
+    'submit': [function(e) {
+      var user = this.getDocument();
 
       if (user.validate()) {
         Meteor.call('/user/save', user, function(err) {
-          if (!err) {
-            FlowRouter.go('users');
-          } else {
+          if (err) {
             user.catchValidationException(err);
+          } else {
+            FlowRouter.go('users');
           }
         });
       }
     }],
-    afterCreate: [function(e) {
-      var self = this;
-      var instance = Template.instance();
-
+    'afterCreate': [function(e) {
+      var form = this;
       var id = FlowRouter.getParam('_id');
+      var tmpl = Template.instance();
+
       if (id) {
-        var subscription = instance.subscribe('user', id);
-        self.setDocument(Users.findOne(id));
+        tmpl.subscribe('user', id);
+        form.setDocument(Users.findOne(id));
       } else {
-        self.setDocument(new User());
+        form.setDocument(new User());
       }
+    }],
+    'change': [function(e) {
+      var doc = this.getDocument();
+
+      // Get an input which value was changed.
+      var input = e.data.input;
+      // Set a value of a field in an instance of User, Phone or Address class.
+      doc.set(input.id, input.value);
+
+      // Validate given field.
+      console.log('validate', input.id);
+      doc.validate(input.id);
     }]
   }
 });
