@@ -60,7 +60,7 @@ User = Astro.Class({
     'email': {
       type: 'string',
       validator: [
-        Validators.email(3),
+        Validators.email(),
         Validators.unique()
       ]
     },
