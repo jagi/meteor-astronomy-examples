@@ -145,10 +145,6 @@ User = Astro.Class.create({
     }
   },
   behaviors: {
-    timestamp: {},
-    i18n: {
-      fieldName: 'dupa',
-      languages: ['en', 'pl']
-    }
+    timestamp: {}
   }
 });
