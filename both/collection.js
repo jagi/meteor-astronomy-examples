@@ -1,17 +1,11 @@
-Address = Astro.Class({
+Address = Astro.Class.create({
   name: 'Address',
   fields: {
     city: {
-      type: 'string',
-      validator: [
-        Validators.minLength(3)
-      ]
+      type: 'string'
     },
     state: {
-      type: 'string',
-      validator: [
-        Validators.length(2)
-      ]
+      type: 'string'
     }
   },
   methods: {
@@ -21,101 +15,113 @@ Address = Astro.Class({
   }
 });
 
-Phone = Astro.Class({
+Phone = Astro.Class.create({
   name: 'Phone',
   fields: {
     name: {
-      type: 'string',
-      validator: [
-        Validators.minLength(3)
-      ]
+      type: 'string'
     },
     number: {
       type: 'string',
-      validator: [
-        Validators.minLength(9)
-      ]
     }
   }
 });
 
 Users = new Mongo.Collection('users');
 
-User = Astro.Class({
+Users.allow({
+  insert: function() {
+    return true;
+  },
+  update: function(userId, doc, fieldNames, modifier) {
+    return true;
+  },
+  remove: function() {
+    return true;
+  }
+});
+
+User = Astro.Class.create({
   name: 'User',
   collection: Users,
-  fields: {
-    'firstName': {
-      type: 'string',
-      validator: [
-        Validators.minLength(3)
-      ]
-    },
-    'lastName': {
-      type: 'string',
-      validator: [
-        Validators.minLength(3)
-      ]
-    },
-    'email': {
-      type: 'string',
-      validator: [
-        Validators.email(3),
-        Validators.unique()
-      ]
-    },
-    'birthDate': {
-      type: 'date',
-      validator: [
-        Validators.date()
-      ]
-    },
-    'age': {
-      type: 'number',
-      transient: true
-    },
+  nested: {
     'address': {
-      type: 'object',
-      default: function() {
-        return {};
-      },
-      nested: 'Address'
+      count: 'one',
+      class: 'Address'
     },
     'phones': {
-      type: 'array',
-      nested: 'Phone',
+      count: 'many',
+      class: 'Phone',
+      default: function() {
+        return [];
+      }
+    },
+    'tags': {
+      count: 'many',
+      type: 'string',
       default: function() {
         return [];
       }
     }
   },
-  events: {
-    afterChange: function(e) {
-      if (e.data.fieldName === 'birthDate') {
-        this.calculateAge();
-      }
+  fields: {
+    'object': null,
+    'firstName': {
+      type: 'string',
+      simpleValidator: 'string,minLength(4),maxLength(10)',
     },
-    afterInit: function() {
-      this.calculateAge();
+    'lastName': {
+      type: 'string'
+    },
+    'email': {
+      type: 'string'
+    },
+    'birthDate': {
+      type: 'date'
+    },
+    'age': {
+      type: 'number',
+      transient: true
+    }
+  },
+  events: {
+    beforeInsert: function(e) {
+      console.log('User.beforeInsert');
+    },
+    beforeUpdate: function(e) {
+      console.log('User.beforeUpdate');
+    },
+    afterInit: function(e) {
+      e.target.calculateAge();
+    },
+    validation: function(e) {
+      let doc = e.currentTarget;
+    },
+    validationError: function(e) {
+      let error = e.error;
+
+      if (error.validator === 'minLength') {
+        error.message = 'It is too short!'
+      }
     }
   },
   methods: {
     calculateAge: function() {
       if (this.birthDate) {
-        var diff = Date.now() - this.birthDate.getTime();
-        this.set('age', Math.abs((new Date(diff)).getUTCFullYear() - 1970));
+        let diff = Date.now() - this.birthDate.getTime();
+        this.age = Math.abs((new Date(diff)).getUTCFullYear() - 1970);
       }
     },
     fullName: function() {
       return this.firstName + ' ' + this.lastName;
     },
     formattedBirthDate: function() {
-      var date = this.birthDate;
+      let date = this.birthDate;
 
       if (date) {
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
 
         if (month < 10) {
           month = '0' + month;
@@ -139,6 +145,10 @@ User = Astro.Class({
     }
   },
   behaviors: {
-    timestamp: {}
+    timestamp: {},
+    i18n: {
+      fieldName: 'dupa',
+      languages: ['en', 'pl']
+    }
   }
 });

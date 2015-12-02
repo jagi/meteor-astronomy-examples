@@ -7,7 +7,7 @@ Meteor.methods({
 
     user.throwValidationException();
   },
-  '/user/remove': function(user) {
-    user.remove();
+  '/user/remove': function(id) {
+    Users.remove(id);
   }
 });

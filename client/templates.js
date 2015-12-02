@@ -1,3 +1,7 @@
+Template.registerHelper('log', function(arg){
+  console.log(arg);
+});
+
 Template.Users.onCreated(function() {
   this.subscribe('users');
 });
@@ -21,13 +25,15 @@ Template.Users.events({
 Template.User.events({
   'click .remove': function(e, tmpl) {
     if (confirm('Are you sure to remove "' + this.fullName() + '"')) {
-      Meteor.call('/user/remove', this);
+      Meteor.call('/user/remove', this._id);
     }
   }
 });
 
 Template.UserForm.onCreated(function() {
   var _id = FlowRouter.getParam('_id');
+
+  window.tmpl = this;
 
   if (_id) {
     this.subscribe('user', _id);
@@ -43,36 +49,50 @@ Template.UserForm.events({
 
     // Get an input which value was changed.
     var input = e.currentTarget;
-    // Set a value of a field in an instance of User, Phone or Address class.
-    doc.set(input.id, input.value);
+    // Get field name.
+    var fieldName = input.id;
+    // Convert value type if needed.
+    var fieldValue;
+    if (input.type === 'date') {
+      fieldValue = input.valueAsDate;
+    } else if (input.type === 'number') {
+      fieldValue = input.valueAsNumber
+    } else {
+      fieldValue = input.value;
+    }
+    // Set new value.
+    doc[fieldName] = fieldValue;
     // Validate given field.
-    doc.validate(input.id);
+    // doc.validate(input.id);
   },
   'click [name=addPhone]': function(e, tmpl) {
     var user = tmpl.data.user.get();
-    // FIXME: It should be:
-    // user.push('phones', new Phone());
-    // However, it will not work because of trying to modify the same field with
-    // two different modifiers. I have to implement modifiers merging.
     user.phones.push(new Phone());
     tmpl.data.user.set(user);
   },
   'click [name=removePhone]': function(e, tmpl) {
     var user = tmpl.data.user.get();
-    user.pull('phones', this);
+    user.phones = _.without(user.phones, this);
     tmpl.data.user.set(user);
   },
   'click [name=save]': function(e, tmpl) {
     var user = tmpl.data.user.get();
+    console.log(user.getModified());
+    user.save(function(error) {
+      console.log('save callback', arguments);
+      if (!error) {
+        FlowRouter.go('users');
+      }
+    });
 
-    if (user.validate()) {
-      Meteor.call('/user/save', user, function(err) {
-        if (!err) {
-          FlowRouter.go('users');
-        } else {
-          user.catchValidationException(err);
-        }
-      });
-    }
+    // if (user.validate()) {
+    //   Meteor.call('/user/save', user, function(err) {
+    //     if (!err) {
+    //
+    //     } else {
+    //       user.catchValidationException(err);
+    //     }
+    //   });
+    // }
   }
 });
