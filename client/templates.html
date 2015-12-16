@@ -11,6 +11,17 @@
     {{#each users}}
       {{> User}}
     {{/each}}
+    {{#each items}}
+      {{> Item}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="Item">
+  <div>
+    <div>name: {{name}}</div>
+    <div>createdAt: {{createdAt}}</div>
+    <div>updatedAt: {{updatedAt}}</div>
   </div>
 </template>
 

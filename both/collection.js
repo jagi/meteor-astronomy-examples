@@ -85,11 +85,29 @@ User = Astro.Class.create({
     }
   },
   events: {
+    beforeSave: function(e) {
+      console.log('User.beforeSave');
+    },
     beforeInsert: function(e) {
       console.log('User.beforeInsert');
     },
     beforeUpdate: function(e) {
       console.log('User.beforeUpdate');
+    },
+    beforeRemove: function(e) {
+      console.log('User.beforeRemove');
+    },
+    afterSave: function(e) {
+      console.log('User.afterSave');
+    },
+    afterInsert: function(e) {
+      console.log('User.afterInsert');
+    },
+    afterUpdate: function(e) {
+      console.log('User.afterUpdate');
+    },
+    afterRemove: function(e) {
+      console.log('User.afterRemove');
     },
     afterInit: function(e) {
       e.target.calculateAge();
@@ -148,3 +166,54 @@ User = Astro.Class.create({
     timestamp: {}
   }
 });
+
+Items = new Mongo.Collection(null);
+
+Item = Astro.Class.create({
+  name: 'Item',
+  collection: Items,
+  fields: {
+    name: 'string'
+  },
+  events: {
+    beforeSave: function(e) {
+      console.log('Item.beforeSave');
+    },
+    beforeInsert: function(e) {
+      console.log('Item.beforeInsert');
+    },
+    beforeUpdate: function(e) {
+      console.log('Item.beforeUpdate');
+    },
+    beforeRemove: function(e) {
+      console.log('Item.beforeRemove');
+    },
+    afterSave: function(e) {
+      console.log('Item.afterSave');
+    },
+    afterInsert: function(e) {
+      console.log('Item.afterInsert');
+    },
+    afterUpdate: function(e) {
+      console.log('Item.afterUpdate');
+    },
+    afterRemove: function(e) {
+      console.log('Item.afterRemove');
+    }
+  },
+  behaviors: {
+    timestamp: {}
+  }
+});
+
+// let methods;
+// if (Meteor.isClient) {
+//   methods = Meteor.connection._methodHandlers;
+// } else if (Meteor.isServer) {
+//   methods = Meteor.server.method_handlers;
+// }
+// let original = methods['/users/insert'];
+// methods['/users/insert'] = function() {
+//   console.log('/users/insert');
+//   return original.apply(this, arguments);
+// };

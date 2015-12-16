@@ -1,4 +1,4 @@
-Template.registerHelper('log', function(arg){
+Template.registerHelper('log', function(arg) {
   console.log(arg);
 });
 
@@ -8,11 +8,14 @@ Template.Users.onCreated(function() {
 
 Template.Users.helpers({
   users: function() {
-    return Users.find({}, {
+    return User.find({}, {
       sort: {
         age: -1
       }
     });
+  },
+  items: function() {
+    return Items.find();
   }
 });
 
@@ -24,8 +27,10 @@ Template.Users.events({
 
 Template.User.events({
   'click .remove': function(e, tmpl) {
-    if (confirm('Are you sure to remove "' + this.fullName() + '"')) {
-      Meteor.call('/user/remove', this._id);
+    var user = this;
+
+    if (confirm('Are you sure to remove "' + user.fullName() + '"')) {
+      user.remove();
     }
   }
 });
@@ -77,22 +82,15 @@ Template.UserForm.events({
   },
   'click [name=save]': function(e, tmpl) {
     var user = tmpl.data.user.get();
-    console.log(user.getModified());
-    user.save(function(error) {
-      console.log('save callback', arguments);
-      if (!error) {
-        FlowRouter.go('users');
-      }
-    });
 
-    // if (user.validate()) {
-    //   Meteor.call('/user/save', user, function(err) {
-    //     if (!err) {
-    //
-    //     } else {
-    //       user.catchValidationException(err);
-    //     }
-    //   });
-    // }
+    if (user.validate()) {
+      user.save(function(error) {
+        if (error) {
+          user.catchErrors(error);
+        } else {
+          FlowRouter.go('users');
+        }
+      });
+    }
   }
 });
