@@ -47,7 +47,8 @@ User = Astro.Class.create({
   nested: {
     'address': {
       count: 'one',
-      class: 'Address'
+      class: 'Address',
+      optional: true
     },
     'phones': {
       count: 'many',
@@ -55,20 +56,12 @@ User = Astro.Class.create({
       default: function() {
         return [];
       }
-    },
-    'tags': {
-      count: 'many',
-      type: 'string',
-      default: function() {
-        return [];
-      }
     }
   },
   fields: {
-    'object': null,
     'firstName': {
       type: 'string',
-      simpleValidator: 'string,minLength(4),maxLength(10)',
+      optional: true
     },
     'lastName': {
       type: 'string'
@@ -87,6 +80,10 @@ User = Astro.Class.create({
   events: {
     beforeSave: function(e) {
       console.log('User.beforeSave');
+      // if (Meteor.isServer) {
+      //   var doc = e.currentTarget;
+      //   doc.firstName = 123;
+      // }
     },
     beforeInsert: function(e) {
       console.log('User.beforeInsert');
@@ -111,9 +108,6 @@ User = Astro.Class.create({
     },
     afterInit: function(e) {
       e.target.calculateAge();
-    },
-    validation: function(e) {
-      let doc = e.currentTarget;
     },
     validationError: function(e) {
       let error = e.error;
@@ -166,54 +160,3 @@ User = Astro.Class.create({
     timestamp: {}
   }
 });
-
-Items = new Mongo.Collection(null);
-
-Item = Astro.Class.create({
-  name: 'Item',
-  collection: Items,
-  fields: {
-    name: 'string'
-  },
-  events: {
-    beforeSave: function(e) {
-      console.log('Item.beforeSave');
-    },
-    beforeInsert: function(e) {
-      console.log('Item.beforeInsert');
-    },
-    beforeUpdate: function(e) {
-      console.log('Item.beforeUpdate');
-    },
-    beforeRemove: function(e) {
-      console.log('Item.beforeRemove');
-    },
-    afterSave: function(e) {
-      console.log('Item.afterSave');
-    },
-    afterInsert: function(e) {
-      console.log('Item.afterInsert');
-    },
-    afterUpdate: function(e) {
-      console.log('Item.afterUpdate');
-    },
-    afterRemove: function(e) {
-      console.log('Item.afterRemove');
-    }
-  },
-  behaviors: {
-    timestamp: {}
-  }
-});
-
-// let methods;
-// if (Meteor.isClient) {
-//   methods = Meteor.connection._methodHandlers;
-// } else if (Meteor.isServer) {
-//   methods = Meteor.server.method_handlers;
-// }
-// let original = methods['/users/insert'];
-// methods['/users/insert'] = function() {
-//   console.log('/users/insert');
-//   return original.apply(this, arguments);
-// };
