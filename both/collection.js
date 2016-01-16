@@ -2,11 +2,14 @@ Address = Astro.Class.create({
   name: 'Address',
   fields: {
     city: {
-      type: 'string'
+      type: String,
     },
     state: {
-      type: 'string'
-    }
+      type: String,
+      validators: {
+        length: 2
+      }
+    },
   },
   methods: {
     where: function() {
@@ -18,12 +21,8 @@ Address = Astro.Class.create({
 Phone = Astro.Class.create({
   name: 'Phone',
   fields: {
-    name: {
-      type: 'string'
-    },
-    number: {
-      type: 'string',
-    }
+    name: String,
+    number: String,
   }
 });
 
@@ -44,77 +43,59 @@ Users.allow({
 User = Astro.Class.create({
   name: 'User',
   collection: Users,
-  nested: {
-    'address': {
-      count: 'one',
-      class: 'Address',
-      optional: true
+  fields: {
+    firstName: {
+      type: String
     },
-    'phones': {
-      count: 'many',
-      class: 'Phone',
+    lastName: {
+      type: String
+    },
+    email: String,
+    birthDate: Date,
+    age: {
+      type: Number,
+      transient: true
+    },
+    address: {
+      type: Address,
+      default: function() {
+        return new Address();
+      }
+    },
+    phones: {
+      type: [Phone],
       default: function() {
         return [];
       }
     }
   },
-  fields: {
-    'firstName': {
-      type: 'string',
-      optional: true
-    },
-    'lastName': {
-      type: 'string'
-    },
-    'email': {
-      type: 'string'
-    },
-    'birthDate': {
-      type: 'date'
-    },
-    'age': {
-      type: 'number',
-      transient: true
-    }
-  },
   events: {
+    afterInit: function(e) {
+      e.target.calculateAge();
+    },
     beforeSave: function(e) {
       console.log('User.beforeSave');
-      // if (Meteor.isServer) {
-      //   var doc = e.currentTarget;
-      //   doc.firstName = 123;
-      // }
-    },
-    beforeInsert: function(e) {
-      console.log('User.beforeInsert');
-    },
-    beforeUpdate: function(e) {
-      console.log('User.beforeUpdate');
-    },
-    beforeRemove: function(e) {
-      console.log('User.beforeRemove');
     },
     afterSave: function(e) {
       console.log('User.afterSave');
     },
+    beforeInsert: function(e) {
+      console.log('User.beforeInsert');
+    },
     afterInsert: function(e) {
       console.log('User.afterInsert');
+    },
+    beforeUpdate: function(e) {
+      console.log('User.beforeUpdate');
     },
     afterUpdate: function(e) {
       console.log('User.afterUpdate');
     },
+    beforeRemove: function(e) {
+      console.log('User.beforeRemove');
+    },
     afterRemove: function(e) {
       console.log('User.afterRemove');
-    },
-    afterInit: function(e) {
-      e.target.calculateAge();
-    },
-    validationError: function(e) {
-      let error = e.error;
-
-      if (error.validator === 'minLength') {
-        error.message = 'It is too short!'
-      }
     }
   },
   methods: {

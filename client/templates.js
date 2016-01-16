@@ -1,7 +1,3 @@
-Template.registerHelper('log', function(arg) {
-  console.log(arg);
-});
-
 Template.Users.onCreated(function() {
   this.subscribe('users');
 });
@@ -10,43 +6,63 @@ Template.Users.helpers({
   users: function() {
     return User.find({}, {
       sort: {
-        age: -1
+        birthDate: 1
       }
     });
-  },
-  items: function() {
-    return Items.find();
   }
 });
 
 Template.Users.events({
-  'click [name=add]': function(e, tmpl) {
+  'click [data-action="addUser"]': function(e, tmpl) {
     FlowRouter.go('add');
   }
 });
 
 Template.User.events({
-  'click .remove': function(e, tmpl) {
+  'click [data-action="removeUser"]': function(e, tmpl) {
     var user = this;
 
     if (confirm('Are you sure to remove "' + user.fullName() + '"')) {
-      user.remove();
+      user.remove(function(err) {
+        if (err) {
+          Materialize.toast(err.reason, 2000);
+        } else {
+          Materialize.toast('User successfully removed', 2000);
+        }
+      });
     }
   }
 });
 
 Template.UserForm.onCreated(function() {
+  var tmpl = this;
+  tmpl.data.user = ReactiveVar();
+
   var _id = FlowRouter.getParam('_id');
-
-  window.tmpl = this;
-
   if (_id) {
-    this.subscribe('user', _id);
-    this.data.user = new ReactiveVar(Users.findOne(_id));
+    tmpl.subscribe('user', _id, function() {
+      tmpl.data.user.set(User.findOne(_id));
+      Tracker.afterFlush(function() {
+        Materialize.updateTextFields();
+      });
+    });
   } else {
-    this.data.user = ReactiveVar(new User());
+    tmpl.data.user.set(new User());
   }
 });
+
+var helpers = {
+  hasError: function() {
+    return false;
+  },
+  getError: function() {
+    return '';
+  }
+};
+
+Template.UserForm.helpers(helpers);
+Template.AddressForm.helpers(helpers);
+Template.PhoneForm.helpers(helpers);
 
 Template.UserForm.events({
   'change input': function(e, tmpl) {
@@ -70,27 +86,28 @@ Template.UserForm.events({
     // Validate given field.
     // doc.validate(input.id);
   },
-  'click [name=addPhone]': function(e, tmpl) {
+  'click [data-action="addPhone"]': function(e, tmpl) {
     var user = tmpl.data.user.get();
     user.phones.push(new Phone());
     tmpl.data.user.set(user);
   },
-  'click [name=removePhone]': function(e, tmpl) {
+  'click [data-action="removePhone"]': function(e, tmpl) {
     var user = tmpl.data.user.get();
     user.phones = _.without(user.phones, this);
     tmpl.data.user.set(user);
   },
-  'click [name=save]': function(e, tmpl) {
+  'submit form': function(e, tmpl) {
+    e.preventDefault();
+
     var user = tmpl.data.user.get();
 
-    if (user.validate()) {
-      user.save(function(error) {
-        if (error) {
-          user.catchErrors(error);
-        } else {
-          FlowRouter.go('users');
-        }
-      });
-    }
+    user.save(function(err) {
+      if (err) {
+        Materialize.toast(err.reason, 2000);
+      } else {
+        FlowRouter.go('users');
+        Materialize.toast('User successfully saved', 2000);
+      }
+    });
   }
 });

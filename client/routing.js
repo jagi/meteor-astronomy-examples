@@ -1,15 +1,17 @@
 FlowRouter.route('/', {
   name: 'users',
   action: function() {
-    BlazeLayout.render('Users');
+    BlazeLayout.render('Layout', {
+      main: 'Users'
+    });
   }
 });
 
 FlowRouter.route('/edit/:_id', {
   name: 'edit',
   action: function(params) {
-    BlazeLayout.render('UserForm', {
-      _id: params._id
+    BlazeLayout.render('Layout', {
+      main: 'UserForm'
     });
   }
 });
@@ -17,6 +19,8 @@ FlowRouter.route('/edit/:_id', {
 FlowRouter.route('/add', {
   name: 'add',
   action: function() {
-    BlazeLayout.render('UserForm');
+    BlazeLayout.render('Layout', {
+      main: 'UserForm'
+    });
   }
 });
