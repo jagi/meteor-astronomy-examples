@@ -2,13 +2,14 @@ Address = Astro.Class.create({
   name: 'Address',
   fields: {
     city: {
-      type: String,
+      type: String
     },
     state: {
       type: String,
-      validators: {
-        length: 2
-      }
+      validators: [{
+        type: 'length',
+        param: 2
+      }]
     },
   },
   methods: {
@@ -51,7 +52,16 @@ User = Astro.Class.create({
       type: String
     },
     email: String,
-    birthDate: Date,
+    birthDate: {
+      type: Date,
+      validators: [{
+        type: 'lte',
+        resolveParam: function() {
+          var date = new Date();
+          return date.setFullYear(date.getFullYear() - 18);
+        }
+      }]
+    },
     age: {
       type: Number,
       transient: true
