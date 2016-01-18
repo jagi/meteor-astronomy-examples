@@ -23,23 +23,11 @@ Phone = Astro.Class.create({
   name: 'Phone',
   fields: {
     name: String,
-    number: String,
+    number: String
   }
 });
 
 Users = new Mongo.Collection('users');
-
-Users.allow({
-  insert: function() {
-    return true;
-  },
-  update: function(userId, doc, fieldNames, modifier) {
-    return true;
-  },
-  remove: function() {
-    return true;
-  }
-});
 
 User = Astro.Class.create({
   name: 'User',
