@@ -84,7 +84,11 @@ Template.UserForm.events({
     // Set new value.
     doc[fieldName] = fieldValue;
     // Validate given field.
-    // doc.validate(input.id);
+    doc.validate(input.id, function(err) {
+			if (err) {
+        Materialize.toast(err.reason, 2000);
+      }
+    });
   },
   'click [data-action="addPhone"]': function(e, tmpl) {
     var user = tmpl.data.user.get();
