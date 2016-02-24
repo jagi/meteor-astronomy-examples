@@ -1,4 +1,9 @@
-Address = Astro.Class.create({
+import {
+	Class
+}
+from 'meteor/jagi:astronomy';
+
+const Address = Class.create({
 	name: 'Address',
 	fields: {
 		city: {
@@ -19,17 +24,20 @@ Address = Astro.Class.create({
 	}
 });
 
-Phone = Astro.Class.create({
+const Phone = Class.create({
 	name: 'Phone',
 	fields: {
-		name: String,
-		number: String
+		name: {
+			type: String
+		},
+		number: {
+			type: String
+		}
 	},
 });
 
-Users = new Mongo.Collection('users');
-
-User = Astro.Class.create({
+const Users = new Mongo.Collection('users');
+const User = Class.create({
 	name: 'User',
 	collection: Users,
 	fields: {
@@ -70,6 +78,9 @@ User = Astro.Class.create({
 	events: {
 		afterInit: function(e) {
 			e.target.calculateAge();
+		},
+		change: function(e) {
+			console.log('User.change', e);
 		},
 		beforeSave: function(e) {
 			console.log('User.beforeSave');
@@ -136,6 +147,14 @@ User = Astro.Class.create({
 		}
 	},
 	behaviors: {
-		timestamp: {}
+		timestamp: {
+			createdFieldName: 'createdAt'
+		}
 	}
 });
+
+export {
+	Address,
+	Phone,
+	User
+};
