@@ -8,23 +8,19 @@ export default Class.create({
   collection: Users,
   fields: {
     firstName: {
-      type: String,
-      optional: true,
+      type: String
     },
     lastName: {
-      type: String,
-      optional: true,
+      type: String
     },
     email: {
       type: String,
-      optional: true,
       validators: [{
         type: 'email'
       }]
     },
     birthDate: {
       type: Date,
-      optional: true,
       validators: [{
         type: 'lte',
         resolveParam: function() {
@@ -35,19 +31,16 @@ export default Class.create({
     },
     age: {
       type: Number,
-      optional: true,
       transient: true
     },
     address: {
       type: Address,
-      optional: true,
       default: function() {
         return new Address();
       }
     },
     phones: {
       type: [Phone],
-      optional: true,
       default: function() {
         return [];
       }
