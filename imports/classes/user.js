@@ -1,4 +1,4 @@
-import { Class } from 'meteor/jagi:astronomy';
+import { Class, Enum } from 'meteor/jagi:astronomy';
 import Users from '/imports/collections/users.js';
 import Address from '/imports/classes/address.js';
 import Phone from '/imports/classes/phone.js';
@@ -8,10 +8,18 @@ export default Class.create({
   collection: Users,
   fields: {
     firstName: {
-      type: String
+      type: String,
+      validators: [{
+        type: 'minLength',
+        param: 2
+      }]
     },
     lastName: {
-      type: String
+      type: String,
+      validators: [{
+        type: 'minLength',
+        param: 2
+      }]
     },
     email: {
       type: String,
@@ -23,7 +31,7 @@ export default Class.create({
       type: Date,
       validators: [{
         type: 'lte',
-        resolveParam: function() {
+        resolveParam() {
           var date = new Date();
           return date.setFullYear(date.getFullYear() - 18);
         }
@@ -35,57 +43,33 @@ export default Class.create({
     },
     address: {
       type: Address,
-      default: function() {
+      default() {
         return new Address();
       }
     },
     phones: {
       type: [Phone],
-      default: function() {
+      default() {
         return [];
       }
     }
   },
   events: {
-    afterInit: function(e) {
+    afterInit(e) {
       e.target.calculateAge();
-    },
-    beforeSave: function(e) {
-      console.log('User.beforeSave');
-    },
-    afterSave: function(e) {
-      console.log('User.afterSave');
-    },
-    beforeInsert: function(e) {
-      console.log('User.beforeInsert');
-    },
-    afterInsert: function(e) {
-      console.log('User.afterInsert');
-    },
-    beforeUpdate: function(e) {
-      console.log('User.beforeUpdate');
-    },
-    afterUpdate: function(e) {
-      console.log('User.afterUpdate');
-    },
-    beforeRemove: function(e) {
-      console.log('User.beforeRemove');
-    },
-    afterRemove: function(e) {
-      console.log('User.afterRemove');
     }
   },
   methods: {
-    calculateAge: function() {
+    calculateAge() {
       if (this.birthDate) {
         let diff = Date.now() - this.birthDate.getTime();
         this.age = Math.abs((new Date(diff)).getUTCFullYear() - 1970);
       }
     },
-    fullName: function() {
+    fullName() {
       return this.firstName + ' ' + this.lastName;
     },
-    formattedBirthDate: function() {
+    formattedBirthDate() {
       let date = this.birthDate;
 
       if (date) {
@@ -115,8 +99,6 @@ export default Class.create({
     }
   },
   behaviors: {
-    timestamp: {
-      createdFieldName: 'createdAt'
-    }
+    timestamp: {}
   }
 });

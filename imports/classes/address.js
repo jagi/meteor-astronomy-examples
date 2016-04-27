@@ -17,34 +17,8 @@ export default Class.create({
       }]
     }
   },
-  events: {
-    beforeSave: function(e) {
-      console.log('Address.beforeSave');
-    },
-    afterSave: function(e) {
-      console.log('Address.afterSave');
-    },
-    beforeInsert: function(e) {
-      console.log('Address.beforeInsert');
-    },
-    afterInsert: function(e) {
-      console.log('Address.afterInsert');
-    },
-    beforeUpdate: function(e) {
-      console.log('Address.beforeUpdate');
-    },
-    afterUpdate: function(e) {
-      console.log('Address.afterUpdate');
-    },
-    beforeRemove: function(e) {
-      console.log('Address.beforeRemove');
-    },
-    afterRemove: function(e) {
-      console.log('Address.afterRemove');
-    }
-  },
   methods: {
-    where: function() {
+    where() {
       return this.city + ', ' + this.state;
     }
   }
