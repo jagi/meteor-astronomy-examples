@@ -1,1 +1,5 @@
-export default new Mongo.Collection('users');
+import { Mongo } from 'meteor/mongo';
+
+const Users = new Mongo.Collection('users');
+
+export default Users;

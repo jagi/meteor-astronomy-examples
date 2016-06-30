@@ -6,6 +6,7 @@ import Phone from '/imports/classes/phone.js';
 export default Class.create({
   name: 'User',
   collection: Users,
+  secured: false,
   fields: {
     firstName: {
       type: String,
