@@ -1,6 +1,9 @@
-import { Class } from 'meteor/jagi:astronomy';
+import {
+  Class
+}
+from 'meteor/jagi:astronomy';
 
-export default Class.create({
+const Phone = Class.create({
   name: 'Phone',
   fields: {
     name: {
@@ -11,3 +14,5 @@ export default Class.create({
     }
   }
 });
+
+export default Phone;

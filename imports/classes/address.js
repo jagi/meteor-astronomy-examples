@@ -1,6 +1,9 @@
-import { Class } from 'meteor/jagi:astronomy';
+import {
+  Class
+}
+from 'meteor/jagi:astronomy';
 
-export default Class.create({
+const Address = Class.create({
   name: 'Address',
   fields: {
     city: {
@@ -23,3 +26,5 @@ export default Class.create({
     }
   }
 });
+
+export default Address;

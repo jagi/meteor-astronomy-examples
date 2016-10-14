@@ -1,9 +1,17 @@
-import { Class, Enum } from 'meteor/jagi:astronomy';
+import {
+  Class,
+  Enum
+}
+from 'meteor/jagi:astronomy';
 import Users from '/imports/collections/users.js';
 import Address from '/imports/classes/address.js';
 import Phone from '/imports/classes/phone.js';
+import {
+  check
+}
+from 'meteor/check';
 
-export default Class.create({
+const User = Class.create({
   name: 'User',
   collection: Users,
   secured: false,
@@ -44,13 +52,13 @@ export default Class.create({
     },
     address: {
       type: Address,
-      default() {
+      default () {
         return new Address();
       }
     },
     phones: {
       type: [Phone],
-      default() {
+      default () {
         return [];
       }
     }
@@ -58,6 +66,15 @@ export default Class.create({
   events: {
     afterInit(e) {
       e.target.calculateAge();
+    }
+  },
+  meteorMethods: {
+    changeName(doc, firstName, lastName) {
+      check(firstName, String);
+      check(lastName, String)
+      doc.firstName = firstName;
+      doc.lastName = lastName;
+      return doc.save();
     }
   },
   methods: {
@@ -100,6 +117,9 @@ export default Class.create({
     }
   },
   behaviors: {
-    timestamp: {}
+    timestamp: {},
+    softremove: {}
   }
 });
+
+export default User;

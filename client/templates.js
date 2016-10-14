@@ -24,7 +24,7 @@ Template.Users.events({
 
 Template.User.events({
   'click [data-action="removeUser"]': function(e, tmpl) {
-    var user = this;
+    const user = this;
 
     if (confirm('Are you sure to remove "' + user.fullName() + '"')) {
       user.remove(function(err) {
@@ -45,10 +45,10 @@ Template.User.events({
 });
 
 Template.UserForm.onCreated(function() {
-  var tmpl = this;
+  const tmpl = this;
   tmpl.data.user = ReactiveVar();
 
-  var _id = FlowRouter.getParam('_id');
+  const _id = FlowRouter.getParam('_id');
   if (_id) {
     tmpl.subscribe('user', _id, function() {
       tmpl.data.user.set(User.findOne(_id));
@@ -62,29 +62,16 @@ Template.UserForm.onCreated(function() {
   }
 });
 
-var helpers = {
-  hasError: function() {
-    return false;
-  },
-  getError: function() {
-    return '';
-  }
-};
-
-Template.UserForm.helpers(helpers);
-Template.AddressForm.helpers(helpers);
-Template.PhoneForm.helpers(helpers);
-
 Template.UserForm.events({
   'change input': function(e, tmpl) {
-    var doc = this; // Instance of User, Phone or Address class.
+    const doc = this; // Instance of User, Phone or Address class.
 
     // Get an input which value was changed.
-    var input = e.currentTarget;
+    const input = e.currentTarget;
     // Get field name.
-    var fieldName = input.id;
+    const fieldName = input.name;
     // Convert value type if needed.
-    var fieldValue;
+    let fieldValue;
     if (input.type === 'date') {
       fieldValue = input.valueAsDate;
     }
@@ -95,10 +82,10 @@ Template.UserForm.events({
       fieldValue = input.value;
     }
     // Set new value.
-    doc[fieldName] = fieldValue;
+    doc.set(fieldName, fieldValue);
     // Validate given field.
     doc.validate({
-      fields: [input.id]
+      fields: [fieldName]
     }, function(err) {
       if (err) {
         if (ValidationError.is(err)) {
@@ -111,19 +98,19 @@ Template.UserForm.events({
     });
   },
   'click [data-action="addPhone"]': function(e, tmpl) {
-    var user = tmpl.data.user.get();
+    const user = tmpl.data.user.get();
     user.phones.push(new Phone());
     tmpl.data.user.set(user);
   },
   'click [data-action="removePhone"]': function(e, tmpl) {
-    var user = tmpl.data.user.get();
+    const user = tmpl.data.user.get();
     user.phones = _.without(user.phones, this);
     tmpl.data.user.set(user);
   },
   'submit form': function(e, tmpl) {
     e.preventDefault();
 
-    var user = tmpl.data.user.get();
+    const user = tmpl.data.user.get();
 
     user.save(function(err) {
       if (err) {

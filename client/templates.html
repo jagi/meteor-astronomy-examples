@@ -65,33 +65,21 @@
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="firstName" type="text" value="{{firstName}}" class="validate {{#if hasError 'firstName'}}invalid{{/if}}">
+            <input id="firstName" name="firstName" type="text" value="{{firstName}}" class="validate">
             <label for="firstName">First Name</label>
-            {{#if hasError 'firstName'}}
-              <div class="error">{{getError 'firstName'}}</div>
-            {{/if}}
           </div>
           <div class="input-field col s6">
-            <input id="lastName" type="text" value="{{lastName}}" class="validate {{#if hasError 'lastName'}}invalid{{/if}}">
+            <input id="lastName" name="lastName" type="text" value="{{lastName}}" class="validate">
             <label for="lastName">Last Name</label>
-            {{#if hasError 'lastName'}}
-              <div class="error">{{getError 'lastName'}}</div>
-            {{/if}}
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="email" type="email" value="{{email}}" class="validate{{#if hasError 'email'}}invalid{{/if}}">
+            <input id="email" name="email" type="email" value="{{email}}" class="validate">
             <label for="email">E-mail</label>
-            {{#if hasError 'email'}}
-              <div class="error">{{getError 'email'}}</div>
-            {{/if}}
           </div>
           <div class="input-field col s6">
-            <input id="birthDate" type="date" value="{{formattedBirthDate}}" class="validate {{#if hasError 'birthDate'}}invalid{{/if}}">
-            {{#if hasError 'birthDate'}}
-              <div class="error">{{getError 'birthDate'}}</div>
-            {{/if}}
+            <input id="birthDate" name="birthDate" type="date" value="{{formattedBirthDate}}" class="validate">
           </div>
         </div>
         <div class="section">
@@ -118,18 +106,12 @@
 <template name="AddressForm">
   <div class="row">
     <div class="input-field col s6">
-      <input id="city" type="text" value="{{city}}" class="validate {{#if hasError 'city'}}invalid{{/if}}">
+      <input id="city" name="city" type="text" value="{{city}}" class="validate">
       <label for="city">City</label>
-      {{#if hasError 'city'}}
-        <div class="error">{{getError 'city'}}</div>
-      {{/if}}
     </div>
     <div class="input-field col s6">
-      <input id="state" type="text" value="{{state}}" class="validate {{#if hasError 'state'}}invalid{{/if}}">
+      <input id="state" name="state" type="text" value="{{state}}" class="validate">
       <label for="state">State</label>
-      {{#if hasError 'state'}}
-        <div class="error">{{getError 'state'}}</div>
-      {{/if}}
     </div>
   </div>
 </template>
@@ -137,18 +119,12 @@
 <template name="PhoneForm">
   <div class="row">
     <div class="input-field col s4">
-      <input id="name" type="text" value="{{name}}" class="validate {{#if hasError 'name'}}invalid{{/if}}">
+      <input id="name" name="name" type="text" value="{{name}}" class="validate">
       <label for="name">Name</label>
-      {{#if hasError 'name'}}
-        <div class="error">{{getError 'name'}}</div>
-      {{/if}}
     </div>
     <div class="input-field col s7">
-      <input id="number" type="text" value="{{number}}" class="validate {{#if hasError 'number'}}invalid{{/if}}">
+      <input id="number" name="number" type="text" value="{{number}}" class="validate">
       <label for="number">Number</label>
-      {{#if hasError 'number'}}
-        <div class="error">{{getError 'number'}}</div>
-      {{/if}}
     </div>
     <div class="col s1">
       <a data-action="removePhone" class="btn-flat"><i class="material-icons">delete</i></a>
