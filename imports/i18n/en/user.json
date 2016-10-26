@@ -1,0 +1,9 @@
+{
+  "birthDate": {
+    "lte": "User has to be at least 18 years old"
+  },
+  "": {
+    "length": "State has to be 2 characters long",
+    "regexp": "State can only contain upper case letters"
+  }
+}

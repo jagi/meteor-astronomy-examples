@@ -1,0 +1,1 @@
+export METEOR_PACKAGE_DIRS="/Users/jagi/workspace/packages" && meteor --port 3000

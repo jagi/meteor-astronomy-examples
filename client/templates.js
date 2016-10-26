@@ -1,6 +1,9 @@
-import User from '/imports/classes/user.js';
-import Phone from '/imports/classes/phone.js';
-import { ValidationError } from 'meteor/jagi:astronomy';
+import User from '/imports/classes/User';
+import Phone from '/imports/classes/Phone';
+import {
+  ValidationError
+}
+from 'meteor/jagi:astronomy';
 
 Template.Users.onCreated(function() {
   this.subscribe('users');

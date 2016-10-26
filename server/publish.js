@@ -1,4 +1,4 @@
-import User from '/imports/classes/user.js';
+import User from '/imports/classes/User';
 
 Meteor.publish('users', function() {
 	return User.find();

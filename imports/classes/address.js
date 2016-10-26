@@ -2,6 +2,7 @@ import {
   Class
 }
 from 'meteor/jagi:astronomy';
+import i18n from '../i18n/i18n';
 
 const Address = Class.create({
   name: 'Address',
@@ -20,7 +21,10 @@ const Address = Class.create({
       }]
     }
   },
-  methods: {
+  resolveError({ nestedName, validator }) {
+    return i18n.get(`address.${nestedName}.${validator}`);
+  },
+  helpers: {
     where() {
       return this.city + ', ' + this.state;
     }

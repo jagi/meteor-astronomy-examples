@@ -3,13 +3,14 @@ import {
   Enum
 }
 from 'meteor/jagi:astronomy';
-import Users from '/imports/collections/users.js';
-import Address from '/imports/classes/address.js';
-import Phone from '/imports/classes/phone.js';
+import Users from '/imports/collections/Users';
+import Address from '/imports/classes/Address';
+import Phone from '/imports/classes/Phone';
 import {
   check
 }
 from 'meteor/check';
+import i18n from '../i18n/i18n';
 
 const User = Class.create({
   name: 'User',
@@ -63,21 +64,15 @@ const User = Class.create({
       }
     }
   },
+  resolveError({ nestedName, validator }) {
+    return i18n.get(`user.${nestedName}.${validator}`);
+  },
   events: {
     afterInit(e) {
       e.target.calculateAge();
     }
   },
-  meteorMethods: {
-    changeName(doc, firstName, lastName) {
-      check(firstName, String);
-      check(lastName, String)
-      doc.firstName = firstName;
-      doc.lastName = lastName;
-      return doc.save();
-    }
-  },
-  methods: {
+  helpers: {
     calculateAge() {
       if (this.birthDate) {
         let diff = Date.now() - this.birthDate.getTime();
@@ -104,6 +99,15 @@ const User = Class.create({
 
         return year + '-' + month + '-' + day;
       }
+    }
+  },
+  meteorMethods: {
+    changeName(firstName, lastName, invocation) {
+      check(firstName, String);
+      check(lastName, String);
+      this.firstName = firstName;
+      this.lastName = lastName;
+      return this.save();
     }
   },
   indexes: {
