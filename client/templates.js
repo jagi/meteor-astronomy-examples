@@ -1,3 +1,7 @@
+import {
+  without
+}
+from 'lodash';
 import User from '/imports/classes/User';
 import Phone from '/imports/classes/Phone';
 import {
@@ -107,7 +111,7 @@ Template.UserForm.events({
   },
   'click [data-action="removePhone"]': function(e, tmpl) {
     const user = tmpl.data.user.get();
-    user.phones = _.without(user.phones, this);
+    user.phones = without(user.phones, this);
     tmpl.data.user.set(user);
   },
   'submit form': function(e, tmpl) {

@@ -1,0 +1,23 @@
+{
+  "name": "meteor-astronomy-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "lodash": "^4.16.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jagi/meteor-astronomy-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jagi/meteor-astronomy-examples/issues"
+  },
+  "homepage": "https://github.com/jagi/meteor-astronomy-examples#readme"
+}

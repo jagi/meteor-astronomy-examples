@@ -102,7 +102,14 @@ const User = Class.create({
     }
   },
   meteorMethods: {
-    changeName(firstName, lastName, invocation) {
+    create() {
+      return this.save();
+    },
+    update(firstName) {
+      this.firstName = firstName;
+      return this.save();
+    },
+    changeName(firstName, lastName) {
       check(firstName, String);
       check(lastName, String);
       this.firstName = firstName;
