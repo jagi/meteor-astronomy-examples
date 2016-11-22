@@ -1,6 +1,5 @@
 import {
-  Class,
-  Enum
+  Class
 }
 from 'meteor/jagi:astronomy';
 import Users from '/imports/collections/Users';
@@ -53,13 +52,13 @@ const User = Class.create({
     },
     address: {
       type: Address,
-      default () {
+      default() {
         return new Address();
       }
     },
     phones: {
       type: [Phone],
-      default () {
+      default() {
         return [];
       }
     }
@@ -75,7 +74,7 @@ const User = Class.create({
   helpers: {
     calculateAge() {
       if (this.birthDate) {
-        let diff = Date.now() - this.birthDate.getTime();
+        const diff = Date.now() - this.birthDate.getTime();
         this.age = Math.abs((new Date(diff)).getUTCFullYear() - 1970);
       }
     },
@@ -83,7 +82,7 @@ const User = Class.create({
       return this.firstName + ' ' + this.lastName;
     },
     formattedBirthDate() {
-      let date = this.birthDate;
+      const date = this.birthDate;
 
       if (date) {
         let year = date.getFullYear();
@@ -128,8 +127,7 @@ const User = Class.create({
     }
   },
   behaviors: {
-    timestamp: {},
-    softremove: {}
+    timestamp: {}
   }
 });
 
