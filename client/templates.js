@@ -55,10 +55,12 @@ Template.UserForm.onCreated(function() {
   const tmpl = this;
   tmpl.data.user = ReactiveVar();
 
-  const _id = FlowRouter.getParam('_id');
-  if (_id) {
-    tmpl.subscribe('user', _id, function() {
-      tmpl.data.user.set(User.findOne(_id));
+  const slug = FlowRouter.getParam('slug');
+  if (slug) {
+    tmpl.subscribe('user', slug, function() {
+      tmpl.data.user.set(User.findOne({
+        slug
+      }));
       Tracker.afterFlush(function() {
         Materialize.updateTextFields();
       });

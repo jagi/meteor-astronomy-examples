@@ -27,3 +27,4 @@ jagi:astronomy-softremove-behavior
 jagi:astronomy
 msavin:mongol
 materialize:materialize@=0.97.6
+jagi:astronomy-slug-behavior

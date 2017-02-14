@@ -104,10 +104,6 @@ const User = Class.create({
     create() {
       return this.save();
     },
-    update(firstName) {
-      this.firstName = firstName;
-      return this.save();
-    },
     changeName(firstName, lastName) {
       check(firstName, String);
       check(lastName, String);
@@ -127,6 +123,10 @@ const User = Class.create({
     }
   },
   behaviors: {
+    slug: {
+      helperName: 'fullName',
+      fieldName: 'email'
+    },
     timestamp: {}
   }
 });
