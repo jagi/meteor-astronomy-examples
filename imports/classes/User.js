@@ -124,7 +124,6 @@ const User = Class.create({
   },
   behaviors: {
     slug: {
-      helperName: 'fullName',
       fieldName: 'email'
     },
     timestamp: {}
