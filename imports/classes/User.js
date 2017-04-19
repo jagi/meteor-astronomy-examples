@@ -79,24 +79,21 @@ const User = Class.create({
       }
     },
     fullName() {
-      return this.firstName + ' ' + this.lastName;
+      return `${this.firstName} ${this.lastName}`;
     },
     formattedBirthDate() {
       const date = this.birthDate;
-
       if (date) {
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
         let day = date.getDate();
-
         if (month < 10) {
-          month = '0' + month;
+          month = `0${month}`;
         }
         if (day < 10) {
-          day = '0' + day;
+          day = `0${day}`;
         }
-
-        return year + '-' + month + '-' + day;
+        return `${year}-${month}-${day}`;
       }
     }
   },
@@ -123,10 +120,9 @@ const User = Class.create({
     }
   },
   behaviors: {
-    slug: {
-      helperName: 'fullName',
-      fieldName: 'email'
-    },
+    slug: [{
+      helperName: 'fullName'
+    }],
     timestamp: {}
   }
 });

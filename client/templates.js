@@ -8,13 +8,17 @@ import {
   ValidationError
 }
 from 'meteor/jagi:astronomy';
+import {
+  ReactiveVar
+}
+from 'meteor/reactive-var';
 
 Template.Users.onCreated(function() {
   this.subscribe('users');
 });
 
 Template.Users.helpers({
-  users: function() {
+  users() {
     return User.find({}, {
       sort: {
         birthDate: 1
@@ -24,17 +28,17 @@ Template.Users.helpers({
 });
 
 Template.Users.events({
-  'click [data-action="addUser"]': function(e, tmpl) {
+  'click [data-action="addUser"]' (e, tmpl) {
     FlowRouter.go('add');
   }
 });
 
 Template.User.events({
-  'click [data-action="removeUser"]': function(e, tmpl) {
+  'click [data-action="removeUser"]' (e, tmpl) {
     const user = this;
 
-    if (confirm('Are you sure to remove "' + user.fullName() + '"')) {
-      user.remove(function(err) {
+    if (confirm(`Are you sure to remove "${user.fullName()}"`)) {
+      user.remove((err) => {
         if (err) {
           if (ValidationError.is(err)) {
             Materialize.toast(err.reason, 2000);
@@ -52,50 +56,51 @@ Template.User.events({
 });
 
 Template.UserForm.onCreated(function() {
-  const tmpl = this;
-  tmpl.data.user = ReactiveVar();
+  this.user = ReactiveVar();
 
   const slug = FlowRouter.getParam('slug');
   if (slug) {
-    tmpl.subscribe('user', slug, function() {
-      tmpl.data.user.set(User.findOne({
+    this.subscribe('user', slug, () => {
+      this.user.set(User.findOne({
         slug
       }));
-      Tracker.afterFlush(function() {
+      Tracker.afterFlush(() => {
         Materialize.updateTextFields();
       });
     });
   }
   else {
-    tmpl.data.user.set(new User());
+    this.user.set(new User({}, {
+      defaults: true
+    }));
+  }
+});
+
+Template.UserForm.helpers({
+  user() {
+    const tmpl = Template.instance();
+    return tmpl.user.get();
   }
 });
 
 Template.UserForm.events({
-  'change input': function(e, tmpl) {
-    const doc = this; // Instance of User, Phone or Address class.
-
+  'change input' (e, tmpl) {
+    // Instance of User, Phone or Address class.
+    const doc = this;
     // Get an input which value was changed.
     const input = e.currentTarget;
     // Get field name.
     const fieldName = input.name;
-    // Convert value type if needed.
-    let fieldValue;
-    if (input.type === 'date') {
-      fieldValue = input.valueAsDate;
-    }
-    else if (input.type === 'number') {
-      fieldValue = input.valueAsNumber
-    }
-    else {
-      fieldValue = input.value;
-    }
+    // Get field value.
+    const fieldValue = input.value;
     // Set new value.
-    doc.set(fieldName, fieldValue);
-    // Validate given field.
+    doc.set(fieldName, fieldValue, {
+      cast: true
+    });
+    // Validate only given field.
     doc.validate({
       fields: [fieldName]
-    }, function(err) {
+    }, (err) => {
       if (err) {
         if (ValidationError.is(err)) {
           Materialize.toast(err.reason, 2000);
@@ -106,22 +111,20 @@ Template.UserForm.events({
       }
     });
   },
-  'click [data-action="addPhone"]': function(e, tmpl) {
-    const user = tmpl.data.user.get();
+  'click [data-action="addPhone"]' (e, tmpl) {
+    const user = tmpl.user.get();
     user.phones.push(new Phone());
-    tmpl.data.user.set(user);
+    tmpl.user.set(user);
   },
-  'click [data-action="removePhone"]': function(e, tmpl) {
-    const user = tmpl.data.user.get();
+  'click [data-action="removePhone"]' (e, tmpl) {
+    const user = tmpl.user.get();
     user.phones = without(user.phones, this);
-    tmpl.data.user.set(user);
+    tmpl.user.set(user);
   },
-  'submit form': function(e, tmpl) {
+  'submit form' (e, tmpl) {
     e.preventDefault();
-
-    const user = tmpl.data.user.get();
-
-    user.save(function(err) {
+    const user = tmpl.user.get();
+    user.save((err) => {
       if (err) {
         Materialize.toast(err.reason, 2000);
       }
