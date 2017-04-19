@@ -37,7 +37,7 @@ Template.User.events({
   'click [data-action="removeUser"]' (e, tmpl) {
     const user = this;
 
-    if (confirm(`Are you sure to remove "${user.fullName()}"`)) {
+    if (confirm(`Are you sure to remove "${user.fullName()}"?`)) {
       user.remove((err) => {
         if (err) {
           if (ValidationError.is(err)) {

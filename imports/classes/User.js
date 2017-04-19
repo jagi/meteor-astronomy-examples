@@ -120,9 +120,9 @@ const User = Class.create({
     }
   },
   behaviors: {
-    slug: [{
-      helperName: 'fullName'
-    }],
+    slug: {
+      fieldName: 'email'
+    },
     timestamp: {}
   }
 });
